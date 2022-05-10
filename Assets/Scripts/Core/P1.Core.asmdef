@@ -1,0 +1,16 @@
+{
+    "name": "P1.Core",
+    "rootNamespace": "P1",
+    "references": [
+        "GUID:ca9add035778f45298b33022652caffd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
