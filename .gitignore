@@ -2,6 +2,7 @@
 **/.idea/
 *.csproj
 *.sln
+*.csproj.DotSettings
 
 # Unity
 /Library/
