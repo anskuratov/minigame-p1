@@ -16,10 +16,17 @@ namespace P1.Core
 	{
 		public readonly struct InitData
 		{
+			public readonly Vector3 FieldScale;
+
+			public InitData(Vector3 fieldScale)
+			{
+				FieldScale = fieldScale;
+			}
 		}
 
 		protected override void HandleInit(InitData initData)
 		{
+			SetScale(initData.FieldScale);
 		}
 	}
 }
