@@ -1,0 +1,14 @@
+# IDE
+**/.idea/
+*.csproj
+*.sln
+
+# Unity
+/Library/
+/Temp/
+/UserSettings/
+/obj/
+/Logs/
+
+# Mac 
+.DS_Store
