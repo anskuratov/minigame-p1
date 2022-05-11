@@ -38,7 +38,7 @@ namespace P1.Framework
 			View = view;
 		}
 
-		protected void SetScale(Vector3 vector)
+		public void SetScale(Vector3 vector)
 		{
 			if (View != null)
 			{
@@ -46,7 +46,7 @@ namespace P1.Framework
 			}
 		}
 
-		protected void SetPosition(Vector3 vector)
+		public void SetPosition(Vector3 vector)
 		{
 			if (View != null)
 			{
@@ -54,7 +54,7 @@ namespace P1.Framework
 			}
 		}
 
-		protected void SetActive(bool value)
+		public void SetActive(bool value)
 		{
 			if (View != null
 				&& View.gameObject.activeSelf != value)

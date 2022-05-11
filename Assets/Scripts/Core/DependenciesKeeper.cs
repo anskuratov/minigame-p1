@@ -8,8 +8,9 @@ namespace P1.Core
 		[SerializeField] private StaticsData _staticsData;
 
 		[Header("Instances")]
-		[SerializeField] private MainMenuWindowView _mainMenuWindowView;
+		[SerializeField] private MenuWindowView _menuWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
+		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
 
 		private void Awake()
 		{
@@ -17,13 +18,17 @@ namespace P1.Core
 
 			var progressManager = new ProgressManager();
 
-			var mainMenuController = new MainMenuWindowViewController();
-			mainMenuController.SetView(_mainMenuWindowView);
-			mainMenuController.Init(new MainMenuWindowViewController.InitData());
+			var menuController = new MenuWindowViewController();
+			menuController.SetView(_menuWindowView);
+			menuController.Init(new MenuWindowViewController.InitData());
 
 			var gameFieldController = new GameFieldSceneViewController(statics, progressManager);
 			gameFieldController.SetView(_gameFieldSceneView);
 			gameFieldController.Init(new GameFieldSceneViewController.InitData());
+
+			var gameOverlayController = new GameOverlayUiViewController(menuController);
+			gameOverlayController.SetView(_gameOverlayUiView);
+			gameOverlayController.Init(new GameOverlayUiViewController.InitData());
 		}
 	}
 }
