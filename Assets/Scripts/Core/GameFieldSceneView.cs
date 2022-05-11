@@ -16,17 +16,37 @@ namespace P1.Core
 	{
 		public readonly struct InitData
 		{
-			public readonly Vector3 FieldScale;
+		}
 
-			public InitData(Vector3 fieldScale)
-			{
-				FieldScale = fieldScale;
-			}
+		private readonly IStatics _statics;
+		private readonly ProgressManager _progressManager;
+
+		public GameFieldSceneViewController(IStatics statics, ProgressManager progressManager)
+		{
+			_statics = statics;
+			_progressManager = progressManager;
 		}
 
 		protected override void HandleInit(InitData initData)
 		{
-			SetScale(initData.FieldScale);
+			if (_statics.TryGetLevel(_progressManager.CurrentLevelId, out var levelData))
+			{
+				SetScale(levelData.GameFieldScale);
+				FillLevel(levelData);
+			}
+		}
+
+		private void FillLevel(Level level)
+		{
+			var circlePrefab = Resources.Load<CircleSceneView>("Prefabs/CircleSceneView");
+
+			foreach (var circle in level.Circles)
+			{
+				var circleSceneView = Object.Instantiate(circlePrefab, View.DynamicObjectsContainer.transform);
+				var circleSceneViewController = new CircleSceneViewController();
+				circleSceneViewController.Init(new CircleSceneViewController.InitData());
+				circleSceneViewController.SetView(circleSceneView);
+			}
 		}
 	}
 }

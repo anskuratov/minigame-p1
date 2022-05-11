@@ -9,13 +9,18 @@ namespace P1.Core
 
 		private void Awake()
 		{
-			var mainMenuController = new MainMenuWindowViewController();
-			mainMenuController.Init(new MainMenuWindowViewController.InitData());
-			mainMenuController.SetView(_mainMenuWindowView);
+			var statics = new Statics();
+			statics.Init();
 
-			var gameFieldController = new GameFieldSceneViewController();
-			gameFieldController.Init(new GameFieldSceneViewController.InitData());
-			gameFieldController.SetView(_gameFieldSceneView);
+			// var progressManager = new ProgressManager();
+			//
+			// var mainMenuController = new MainMenuWindowViewController();
+			// mainMenuController.Init(new MainMenuWindowViewController.InitData());
+			// mainMenuController.SetView(_mainMenuWindowView);
+			//
+			// var gameFieldController = new GameFieldSceneViewController(statics, progressManager);
+			// gameFieldController.Init(new GameFieldSceneViewController.InitData());
+			// gameFieldController.SetView(_gameFieldSceneView);
 		}
 	}
 }

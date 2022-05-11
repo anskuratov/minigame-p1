@@ -14,21 +14,20 @@ namespace P1.Core
 	{
 		public readonly struct InitData
 		{
-			public readonly int Number;
+			public readonly Circle Circle;
 
-			public InitData(int number)
+			public InitData(Circle circle)
 			{
-				Number = number;
+				Circle = circle;
 			}
 		}
 
-		public int Number { get; private set; }
-
 		protected override void HandleInit(InitData initData)
 		{
-			Number = initData.Number;
-			
-			
+			SetPosition(initData.Circle.Position);
+
+			var color = ColorUtils.GetColorByNumber(initData.Circle.Number); 
+			SetColor(color);
 		}
 
 		private void SetColor(Color color)
