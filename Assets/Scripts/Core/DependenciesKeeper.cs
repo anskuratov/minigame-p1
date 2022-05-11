@@ -18,12 +18,12 @@ namespace P1.Core
 			var progressManager = new ProgressManager();
 
 			var mainMenuController = new MainMenuWindowViewController();
-			mainMenuController.Init(new MainMenuWindowViewController.InitData());
 			mainMenuController.SetView(_mainMenuWindowView);
+			mainMenuController.Init(new MainMenuWindowViewController.InitData());
 
 			var gameFieldController = new GameFieldSceneViewController(statics, progressManager);
-			gameFieldController.Init(new GameFieldSceneViewController.InitData());
 			gameFieldController.SetView(_gameFieldSceneView);
+			gameFieldController.Init(new GameFieldSceneViewController.InitData());
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System.IO;
 using P1.Framework;
 using UnityEngine;
 
@@ -31,21 +32,21 @@ namespace P1.Core
 		{
 			if (_statics.TryGetLevel(_progressManager.CurrentLevelId, out var levelData))
 			{
-				SetScale(levelData.GameFieldScale);
+				View.Background.SetScale(levelData.GameFieldScale);
 				FillLevel(levelData);
 			}
 		}
 
 		private void FillLevel(Level level)
 		{
-			var circlePrefab = Resources.Load<CircleSceneView>("Prefabs/CircleSceneView");
+			var circlePrefab = Resources.Load<CircleSceneView>(Path.Combine("Prefabs", "CircleSceneView"));
 
 			foreach (var circle in level.Circles)
 			{
 				var circleSceneView = Object.Instantiate(circlePrefab, View.DynamicObjectsContainer.transform);
 				var circleSceneViewController = new CircleSceneViewController();
-				circleSceneViewController.Init(new CircleSceneViewController.InitData());
 				circleSceneViewController.SetView(circleSceneView);
+				circleSceneViewController.Init(new CircleSceneViewController.InitData(circle));
 			}
 		}
 	}

@@ -4,17 +4,17 @@ namespace P1.Framework
 {
 	public class BaseView : MonoBehaviour
 	{
-		internal void SetScale(Vector3 vector)
+		public void SetScale(Vector3 vector)
 		{
 			transform.localScale = vector;
 		}
 
-		internal void SetPosition(Vector3 vector)
+		public void SetPosition(Vector3 vector)
 		{
 			transform.localPosition = vector;
 		}
 
-		internal void SetActive(bool value)
+		public void SetActive(bool value)
 		{
 			gameObject.SetActive(value);
 		}

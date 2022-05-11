@@ -10,11 +10,15 @@ namespace P1.Core
 		{
 			_levels = new Dictionary<int, Level>();
 
-			ParseLevels();
+			ParseLevels(staticsData.Levels);
 		}
 
-		private void ParseLevels()
+		private void ParseLevels(IReadOnlyCollection<Level> levels)
 		{
+			foreach (var level in levels)
+			{
+				_levels.Add(level.Id, level);
+			}
 		}
 
 		public bool TryGetLevel(int levelId, out Level level)
