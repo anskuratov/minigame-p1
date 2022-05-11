@@ -727,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69c854eeb67842d0a33c2cbe0f5ad36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _staticsData: {fileID: 11400000, guid: a6b167634b6d94b8db0e81cbb629250a, type: 2}
   _mainMenuWindowView: {fileID: 1162002819}
   _gameFieldSceneView: {fileID: 598321161}
 --- !u!4 &1337237332

@@ -1,16 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace P1.Core
 {
-	public readonly struct StaticsData
+	[CreateAssetMenu(menuName = "ScriptableObject/Statics")]
+	public class StaticsData : ScriptableObject
 	{
-		public IReadOnlyDictionary<int, Level> Levels => _levels;
+		[SerializeField] private Level[] _levels;
 
-		private readonly Dictionary<int, Level> _levels;
-
-		public StaticsData(Dictionary<int, Level> levels)
-		{
-			_levels = levels;
-		}
+		public IReadOnlyCollection<Level> Levels => _levels;
 	}
 }

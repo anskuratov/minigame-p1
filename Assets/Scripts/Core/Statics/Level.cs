@@ -1,18 +1,20 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace P1.Core
 {
-	public readonly struct Level
+	[Serializable]
+	public struct Level
 	{
-		public readonly int NextLevelId;
-		public readonly Circle[] Circles;
-		public readonly Vector2 GameFieldScale;
+		[SerializeField] private int _id;
+		[SerializeField] private int _nextLevelId;
+		[SerializeField] private Circle[] _circles;
+		[SerializeField] private Vector2 _gameFieldScale;
 
-		public Level(int nextLevelId, Circle[] circles, Vector2 gameFieldScale)
-		{
-			NextLevelId = nextLevelId;
-			Circles = circles;
-			GameFieldScale = gameFieldScale;
-		}
+		public int Id => _id;
+		public int NextLevelId => _nextLevelId;
+		public IReadOnlyCollection<Circle> Circles => _circles;
+		public Vector2 GameFieldScale => _gameFieldScale;
 	}
 }

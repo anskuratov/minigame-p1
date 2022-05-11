@@ -1,24 +1,25 @@
-using System.IO;
-using Newtonsoft.Json;
-using P1.Framework;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace P1.Core
 {
-	public class Statics : IStatics,
-		IInitializable
+	public class Statics : IStatics
 	{
-		private StaticsData _data;
+		private readonly Dictionary<int, Level> _levels;
 
-		public void Init()
+		public Statics(StaticsData staticsData)
 		{
-			var staticsJsonString = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "statics.json"));
-			_data = JsonConvert.DeserializeObject<StaticsData>(staticsJsonString);
+			_levels = new Dictionary<int, Level>();
+
+			ParseLevels();
+		}
+
+		private void ParseLevels()
+		{
 		}
 
 		public bool TryGetLevel(int levelId, out Level level)
 		{
-			return _data.Levels.TryGetValue(levelId, out level);
+			return _levels.TryGetValue(levelId, out level);
 		}
 	}
 }

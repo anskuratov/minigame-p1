@@ -1,16 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace P1.Core
 {
-	public readonly struct Circle
+	[Serializable]
+	public struct Circle
 	{
-		public readonly int Number;
-		public readonly Vector2 Position;
+		[SerializeField] private int _number;
+		[SerializeField] private Vector2 _position;
 
-		public Circle(int number, Vector2 position)
-		{
-			Number = number;
-			Position = position;
-		}
+		public int Number => _number;
+		public Vector2 Position => _position;
 	}
 }
