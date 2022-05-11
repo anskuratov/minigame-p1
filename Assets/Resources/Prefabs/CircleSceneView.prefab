@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 500130043870464853}
   - component: {fileID: 8419051115396287163}
   m_Layer: 0
-  m_Name: GameCircleSceneView
+  m_Name: CircleSceneView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
