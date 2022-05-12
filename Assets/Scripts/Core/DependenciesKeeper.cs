@@ -1,3 +1,4 @@
+using P1.Framework;
 using UnityEngine;
 
 namespace P1.Core
@@ -7,10 +8,12 @@ namespace P1.Core
 		[Header("Configs")]
 		[SerializeField] private StaticsData _staticsData;
 
-		[Header("Instances")]
+		[Header("Dependencies")]
 		[SerializeField] private MenuWindowView _menuWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
 		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
+		[SerializeField] private FrameUpdater _frameUpdater;
+		[SerializeField] private FixedUpdater _fixedUpdater;
 
 		private void Awake()
 		{
