@@ -7,23 +7,18 @@ namespace P1.Core
 	{
 		private IDraggable _currentDraggable;
 
-		public StandaloneInputController(IUpdater updater, Camera camera) : base(updater, camera)
+		public StandaloneInputController(IUpdater updater) : base(updater)
 		{
 		}
 
 		protected override void HandleUpdate(double deltaTime)
 		{
-			InputPointer.Position = Camera.ScreenToWorldPoint(Input.mousePosition);
-
 			if (Input.GetKeyDown(KeyCode.Mouse0))
 			{
-				if (TryRaycast(out var transform))
+				if (RaycastUtils.TryRaycast(out var transform))
 				{
 					var clickable = transform.GetComponent<IClickable>();
-					if (clickable != null)
-					{
-						clickable.Click();
-					}
+					clickable?.Click();
 
 					var draggable = transform.GetComponent<IDraggable>();
 					if (draggable != null)
@@ -41,24 +36,9 @@ namespace P1.Core
 
 			if (Input.GetKey(KeyCode.Mouse0))
 			{
+				InputPointer.Position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				_currentDraggable?.Drag(InputPointer);
 			}
-		}
-
-		private bool TryRaycast(out Transform raycastTransform)
-		{
-			var returnValue = false;
-			raycastTransform = default;
-
-			var collider = Physics2D.OverlapPoint(Camera.ScreenToWorldPoint(Input.mousePosition));
-
-			if (collider)
-			{
-				raycastTransform = collider.transform;
-				returnValue = true;
-			}
-
-			return returnValue;
 		}
 	}
 }
