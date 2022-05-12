@@ -886,6 +886,7 @@ MonoBehaviour:
   _gameOverlayUiView: {fileID: 733074695}
   _frameUpdater: {fileID: 2015015283}
   _fixedUpdater: {fileID: 2015015282}
+  _camera: {fileID: 1883053175}
 --- !u!4 &1337237332
 Transform:
   m_ObjectHideFlags: 0
