@@ -21,7 +21,7 @@ namespace P1.Core
 			var statics = new Statics(_staticsData);
 			var progressManager = new ProgressManager();
 
-			var inputControllerFactory = new InputControllerFactory(_fixedUpdater);
+			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
 			inputControllerFactory.Create();
 
 			var menuController = new MenuWindowViewController();

@@ -1,35 +1,15 @@
-using System;
 using P1.Framework;
 using UnityEngine;
 
 namespace P1.Core
 {
-	public class CircleSceneView : BaseView, IDraggable
+	public class CircleSceneView : DraggableView
 	{
 		[SerializeField] private SpriteRenderer _spriteRenderer;
 		[SerializeField] private LineRenderer _lineRenderer;
 
 		public SpriteRenderer SpriteRenderer => _spriteRenderer;
 		public LineRenderer LineRenderer => _lineRenderer;
-
-		public event Action OnDragStarted;
-		public event Action OnDragEnded;
-		public event Action<IPointer> OnDragged;
-
-		public void StartDrag()
-		{
-			OnDragStarted?.Invoke();
-		}
-
-		public void EndDrag()
-		{
-			OnDragEnded?.Invoke();
-		}
-
-		public void Drag(IPointer pointer)
-		{
-			OnDragged?.Invoke(pointer);
-		}
 	}
 
 	public class CircleSceneViewController : BaseViewController<CircleSceneView, CircleSceneViewController.InitData>
@@ -64,7 +44,7 @@ namespace P1.Core
 			}
 			else
 			{
-				View.SpriteRenderer.color= Color.black;
+				View.SpriteRenderer.color = Color.black;
 			}
 		}
 

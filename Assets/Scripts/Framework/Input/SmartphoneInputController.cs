@@ -1,6 +1,4 @@
-using P1.Framework;
-
-namespace P1.Core
+namespace P1.Framework
 {
 	public class SmartphoneInputController : BaseInputController
 	{

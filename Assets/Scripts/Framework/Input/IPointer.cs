@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace P1.Core
+namespace P1.Framework
 {
 	public interface IPointer
 	{
