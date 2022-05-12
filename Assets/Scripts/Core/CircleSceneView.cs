@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using P1.Framework;
 using UnityEngine;
 
@@ -35,20 +34,6 @@ namespace P1.Core
 
 	public class CircleSceneViewController : BaseViewController<CircleSceneView, CircleSceneViewController.InitData>
 	{
-		private const int Divider = 9;
-
-		private static readonly Dictionary<int, string> RemainderToHexColor = new()
-		{
-			{ 1, "#2A3A9C" },
-			{ 2, "#ADE4FF" },
-			{ 3, "#FFA96E" },
-			{ 4, "#7682CC" },
-			{ 5, "#D49B87" },
-			{ 6, "#53D492" },
-			{ 7, "#9C6703" },
-			{ 8, "#A83B7E" }
-		};
-
 		public readonly struct InitData
 		{
 			public readonly Circle Circle;
@@ -62,19 +47,16 @@ namespace P1.Core
 		protected override void HandleInit(InitData initData)
 		{
 			SetPosition(initData.Circle.Position);
-			SetColorByNumber(initData.Circle.Number);
+			SetColor(initData.Circle.Number);
 
 			View.OnDragStarted += OnDragStarted;
 			View.OnDragEnded += OnDragEnded;
 			View.OnDragged += OnDragged;
 		}
 
-		private void SetColorByNumber(int number)
+		private void SetColor(int number)
 		{
-			var remainder = number % Divider;
-
-			if (RemainderToHexColor.TryGetValue(remainder, out var hexColor)
-				&& ColorUtility.TryParseHtmlString(hexColor.ToLower(), out var color))
+			if (ColorUtils.TryGetCircleColor(number, out var color))
 			{
 				View.SpriteRenderer.color = color;
 				View.LineRenderer.startColor = color;
