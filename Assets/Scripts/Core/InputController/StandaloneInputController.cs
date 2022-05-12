@@ -33,16 +33,15 @@ namespace P1.Core
 					}
 				}
 			}
+			else if (Input.GetKeyUp(KeyCode.Mouse0))
+			{
+				_currentDraggable?.EndDrag();
+				_currentDraggable = null;
+			}
 
 			if (Input.GetKey(KeyCode.Mouse0))
 			{
 				_currentDraggable?.Drag(InputPointer);
-			}
-
-			if (Input.GetKeyUp(KeyCode.Mouse0))
-			{
-				_currentDraggable?.EndDrag();
-				_currentDraggable = null;
 			}
 		}
 

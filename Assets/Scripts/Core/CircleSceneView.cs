@@ -77,6 +77,8 @@ namespace P1.Core
 				&& ColorUtility.TryParseHtmlString(hexColor.ToLower(), out var color))
 			{
 				View.SpriteRenderer.color = color;
+				View.LineRenderer.startColor = color;
+				View.LineRenderer.endColor = color;
 			}
 			else
 			{
