@@ -19,8 +19,7 @@ namespace P1.Core
 		private void Awake()
 		{
 			var statics = new Statics(_staticsData);
-			var progressManager = new ProgressManager();
-			var gameManager = new GameManager(statics, progressManager);
+			var gameManager = new GameManager(statics);
 			gameManager.Init();
 
 			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
@@ -34,7 +33,7 @@ namespace P1.Core
 			gameFieldController.SetView(_gameFieldSceneView);
 			gameFieldController.Init(new GameFieldSceneViewController.InitData(gameManager.Level));
 
-			var gameOverlayController = new GameOverlayUiViewController(menuController);
+			var gameOverlayController = new GameOverlayUiViewController(gameManager, menuController);
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init(new GameOverlayUiViewController.InitData());
 		}

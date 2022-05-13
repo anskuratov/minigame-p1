@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace P1.Core
@@ -6,6 +7,9 @@ namespace P1.Core
 	{
 		private const string CurrentLevelIdKey = "CurrentLevelId";
 		private const string CoinsCountKey = "CoinsCount";
+
+		public event Action<int> OnLevelChanged;
+		public event Action<int> OnCoinsChanged;
 
 		public int CurrentLevelId
 		{
@@ -18,6 +22,8 @@ namespace P1.Core
 			{
 				_currentLevelId = value;
 				PlayerPrefs.SetInt(CurrentLevelIdKey, _currentLevelId);
+
+				OnLevelChanged?.Invoke(_currentLevelId);
 			}
 		}
 
@@ -32,6 +38,8 @@ namespace P1.Core
 			{
 				_coinsCount = value;
 				PlayerPrefs.SetInt(CoinsCountKey, _coinsCount);
+
+				OnCoinsChanged?.Invoke(_coinsCount);
 			}
 		}
 

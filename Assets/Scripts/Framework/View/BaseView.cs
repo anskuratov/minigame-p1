@@ -28,9 +28,18 @@ namespace P1.Framework
 
 		protected abstract void HandleInit(TInitData initData);
 
+		protected virtual void HandleRefresh()
+		{
+		}
+
 		public void Init(TInitData initData)
 		{
 			HandleInit(initData);
+		}
+
+		public void Refresh()
+		{
+			HandleRefresh();
 		}
 
 		public void SetView(TView view)

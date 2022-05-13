@@ -32,7 +32,7 @@ namespace P1.Core
 		{
 			_gameManager = gameManager;
 
-			_gameManager.OnLevelChanged += Reinit;
+			_gameManager.OnLevelChanged += () => { Init(new InitData(_gameManager.Level)); };
 		}
 
 		protected override void HandleInit(InitData initData)
@@ -54,11 +54,6 @@ namespace P1.Core
 				circleSceneViewController.SetView(circleSceneView);
 				circleSceneViewController.Init(new CircleSceneViewController.InitData(circle));
 			}
-		}
-
-		private void Reinit(Level level)
-		{
-			Init(new InitData(level));
 		}
 	}
 }
