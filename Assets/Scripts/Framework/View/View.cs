@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace P1.Framework
 {
-	public class BaseView : MonoBehaviour
+	public class View : MonoBehaviour
 	{
 		public void SetScale(Vector3 vector)
 		{
@@ -20,21 +20,13 @@ namespace P1.Framework
 		}
 	}
 
-	public abstract class BaseViewController<TView, TInitData> : IInitializable<TInitData>
-		where TView : BaseView
-		where TInitData : struct
+	public abstract class BaseViewController<TView>
+		where TView : View
 	{
 		protected TView View { get; private set; }
 
-		protected abstract void HandleInit(TInitData initData);
-
 		protected virtual void HandleRefresh()
 		{
-		}
-
-		public void Init(TInitData initData)
-		{
-			HandleInit(initData);
 		}
 
 		public void Refresh()
@@ -70,6 +62,31 @@ namespace P1.Framework
 			{
 				View.SetActive(value);
 			}
+		}
+	}
+
+	public abstract class ViewController<TView> : BaseViewController<TView>,
+		IInitializable
+		where TView : View
+	{
+		protected abstract void HandleInit();
+
+		public void Init()
+		{
+			HandleInit();
+		}
+	}
+
+	public abstract class ViewController<TView, TInitData> : BaseViewController<TView>,
+		IInitializable<TInitData>
+		where TView : View
+		where TInitData : struct
+	{
+		protected abstract void HandleInit(TInitData initData);
+
+		public void Init(TInitData initData)
+		{
+			HandleInit(initData);
 		}
 	}
 }
