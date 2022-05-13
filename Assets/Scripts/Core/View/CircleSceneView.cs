@@ -1,5 +1,6 @@
 using System;
 using P1.Framework;
+using TMPro;
 using UnityEngine;
 
 namespace P1.Core
@@ -8,9 +9,13 @@ namespace P1.Core
 	{
 		[SerializeField] private SpriteRenderer _spriteRenderer;
 		[SerializeField] private LineRenderer _lineRenderer;
+		[SerializeField] private Canvas _numberCanvas;
+		[SerializeField] private TMP_Text _numberText;
 
 		public SpriteRenderer SpriteRenderer => _spriteRenderer;
 		public LineRenderer LineRenderer => _lineRenderer;
+		public Canvas NumberCanvas => _numberCanvas;
+		public TMP_Text NumberText => _numberText;
 
 		public event Action OnConnected;
 
@@ -48,8 +53,9 @@ namespace P1.Core
 		protected override void HandleInit(InitData initData)
 		{
 			_number = initData.Circle.Number;
+			View.NumberCanvas.worldCamera = Camera.main;
+			View.NumberText.text = initData.Circle.Number.ToString();
 			View.Number = initData.Circle.Number;
-
 			SetPosition(initData.Circle.Position);
 			SetColor();
 
