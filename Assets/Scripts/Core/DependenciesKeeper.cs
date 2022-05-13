@@ -13,6 +13,7 @@ namespace P1.Core
 		[SerializeField] private FixedUpdater _fixedUpdater;
 
 		[SerializeField] private MenuWindowView _menuWindowView;
+		[SerializeField] private WinWindowView _winWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
 		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
 
@@ -25,15 +26,21 @@ namespace P1.Core
 			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
 			inputControllerFactory.Create();
 
-			var menuController = new MenuWindowViewController();
-			menuController.SetView(_menuWindowView);
-			menuController.Init(new MenuWindowViewController.InitData());
+			var menuWindowController = new MenuWindowViewController();
+			menuWindowController.SetView(_menuWindowView);
+			menuWindowController.Init(new MenuWindowViewController.InitData());
+			menuWindowController.SetActive(false);
+
+			var winWindowController = new WinWindowViewController(gameManager);
+			winWindowController.SetView(_winWindowView);
+			winWindowController.Init(new WinWindowViewController.InitData());
+			winWindowController.SetActive(false);
 
 			var gameFieldController = new GameFieldSceneViewController(gameManager);
 			gameFieldController.SetView(_gameFieldSceneView);
 			gameFieldController.Init(new GameFieldSceneViewController.InitData(gameManager.Level));
 
-			var gameOverlayController = new GameOverlayUiViewController(gameManager, menuController);
+			var gameOverlayController = new GameOverlayUiViewController(gameManager, menuWindowController);
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init(new GameOverlayUiViewController.InitData());
 		}
