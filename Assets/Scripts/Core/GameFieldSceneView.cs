@@ -13,28 +13,34 @@ namespace P1.Core
 		public BaseView DynamicObjectsContainer => _dynamicObjectsContainer;
 	}
 
-	public class GameFieldSceneViewController : BaseViewController<GameFieldSceneView, GameFieldSceneViewController.InitData>
+	public class GameFieldSceneViewController :
+		BaseViewController<GameFieldSceneView, GameFieldSceneViewController.InitData>
 	{
 		public readonly struct InitData
 		{
+			public readonly Level Level;
+
+			public InitData(Level level)
+			{
+				Level = level;
+			}
 		}
 
-		private readonly IStatics _statics;
-		private readonly ProgressManager _progressManager;
+		private readonly GameManager _gameManager;
 
-		public GameFieldSceneViewController(IStatics statics, ProgressManager progressManager)
+		public GameFieldSceneViewController(GameManager gameManager)
 		{
-			_statics = statics;
-			_progressManager = progressManager;
+			_gameManager = gameManager;
+
+			_gameManager.OnLevelChanged += Reinit;
 		}
 
 		protected override void HandleInit(InitData initData)
 		{
-			if (_statics.TryGetLevel(_progressManager.CurrentLevelId, out var levelData))
-			{
-				View.Background.SetScale(levelData.GameFieldScale);
-				FillLevel(levelData);
-			}
+			View.DynamicObjectsContainer.transform.DestroyAllChildren();
+
+			View.Background.SetScale(initData.Level.GameFieldScale);
+			FillLevel(initData.Level);
 		}
 
 		private void FillLevel(Level level)
@@ -44,10 +50,15 @@ namespace P1.Core
 			foreach (var circle in level.Circles)
 			{
 				var circleSceneView = Object.Instantiate(circlePrefab, View.DynamicObjectsContainer.transform);
-				var circleSceneViewController = new CircleSceneViewController();
+				var circleSceneViewController = new CircleSceneViewController(_gameManager);
 				circleSceneViewController.SetView(circleSceneView);
 				circleSceneViewController.Init(new CircleSceneViewController.InitData(circle));
 			}
+		}
+
+		private void Reinit(Level level)
+		{
+			Init(new InitData(level));
 		}
 	}
 }

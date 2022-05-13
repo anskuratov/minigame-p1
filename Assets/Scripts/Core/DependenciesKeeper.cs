@@ -20,6 +20,8 @@ namespace P1.Core
 		{
 			var statics = new Statics(_staticsData);
 			var progressManager = new ProgressManager();
+			var gameManager = new GameManager(statics, progressManager);
+			gameManager.Init();
 
 			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
 			inputControllerFactory.Create();
@@ -28,9 +30,9 @@ namespace P1.Core
 			menuController.SetView(_menuWindowView);
 			menuController.Init(new MenuWindowViewController.InitData());
 
-			var gameFieldController = new GameFieldSceneViewController(statics, progressManager);
+			var gameFieldController = new GameFieldSceneViewController(gameManager);
 			gameFieldController.SetView(_gameFieldSceneView);
-			gameFieldController.Init(new GameFieldSceneViewController.InitData());
+			gameFieldController.Init(new GameFieldSceneViewController.InitData(gameManager.Level));
 
 			var gameOverlayController = new GameOverlayUiViewController(menuController);
 			gameOverlayController.SetView(_gameOverlayUiView);

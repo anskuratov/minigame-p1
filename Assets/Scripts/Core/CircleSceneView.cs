@@ -35,8 +35,15 @@ namespace P1.Core
 			}
 		}
 
+		private readonly GameManager _gameManager;
+
 		private int _number;
 		private bool _isConnected;
+
+		public CircleSceneViewController(GameManager gameManager)
+		{
+			_gameManager = gameManager;
+		}
 
 		protected override void HandleInit(InitData initData)
 		{
@@ -72,6 +79,8 @@ namespace P1.Core
 			View.OnDragStarted -= OnDragStarted;
 			View.OnDragEnded -= OnDragEnded;
 			View.OnDragged -= OnDragged;
+
+			_gameManager.ConnectCircle();
 		}
 
 		private void OnDragStarted()
