@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace P1.Core
 {
-	public class GameOverlayUiView : BaseView
+	public class GameOverlayUiView : View
 	{
 		[SerializeField] private Button _menuButton;
 		[SerializeField] private TMP_Text _coinsCountText;
@@ -15,12 +15,8 @@ namespace P1.Core
 	}
 
 	public class GameOverlayUiViewController :
-		BaseViewController<GameOverlayUiView, GameOverlayUiViewController.InitData>
+		ViewController<GameOverlayUiView>
 	{
-		public readonly struct InitData
-		{
-		}
-
 		private readonly GameManager _gameManager;
 		private readonly MenuWindowViewController _menuWindowViewController;
 
@@ -32,7 +28,7 @@ namespace P1.Core
 			_gameManager.OnCoinsChanged += Refresh;
 		}
 
-		protected override void HandleInit(InitData initData)
+		protected override void HandleInit()
 		{
 			View.MenuButton.onClick.AddListener(OnMenuButtonClick);
 			Refresh();

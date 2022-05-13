@@ -24,6 +24,7 @@ namespace P1.Framework
 			if (_releasedInstances.Count > 0)
 			{
 				returnValue = _releasedInstances.Pop();
+				returnValue.Prepare();
 			}
 			else
 			{

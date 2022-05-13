@@ -28,21 +28,23 @@ namespace P1.Core
 
 			var menuWindowController = new MenuWindowViewController();
 			menuWindowController.SetView(_menuWindowView);
-			menuWindowController.Init(new MenuWindowViewController.InitData());
+			menuWindowController.Init();
 			menuWindowController.SetActive(false);
 
 			var winWindowController = new WinWindowViewController(gameManager);
 			winWindowController.SetView(_winWindowView);
-			winWindowController.Init(new WinWindowViewController.InitData());
+			winWindowController.Init();
 			winWindowController.SetActive(false);
 
 			var gameFieldController = new GameFieldSceneViewController(gameManager);
 			gameFieldController.SetView(_gameFieldSceneView);
-			gameFieldController.Init(new GameFieldSceneViewController.InitData(gameManager.Level));
+			gameFieldController.Init();
 
 			var gameOverlayController = new GameOverlayUiViewController(gameManager, menuWindowController);
 			gameOverlayController.SetView(_gameOverlayUiView);
-			gameOverlayController.Init(new GameOverlayUiViewController.InitData());
+			gameOverlayController.Init();
+
+			gameManager.StartLevel();
 		}
 	}
 }

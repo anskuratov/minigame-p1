@@ -1,59 +1,69 @@
+using System.Collections.Generic;
 using System.IO;
 using P1.Framework;
 using UnityEngine;
 
 namespace P1.Core
 {
-	public class GameFieldSceneView : BaseView
+	public class GameFieldSceneView : View
 	{
-		[SerializeField] private BaseView _background;
-		[SerializeField] private BaseView _dynamicObjectsContainer;
+		[SerializeField] private View _background;
+		[SerializeField] private View _dynamicObjectsContainer;
 
-		public BaseView Background => _background;
-		public BaseView DynamicObjectsContainer => _dynamicObjectsContainer;
+		public View Background => _background;
+		public View DynamicObjectsContainer => _dynamicObjectsContainer;
 	}
 
 	public class GameFieldSceneViewController :
-		BaseViewController<GameFieldSceneView, GameFieldSceneViewController.InitData>
+		ViewController<GameFieldSceneView>
 	{
-		public readonly struct InitData
-		{
-			public readonly Level Level;
-
-			public InitData(Level level)
-			{
-				Level = level;
-			}
-		}
-
 		private readonly GameManager _gameManager;
+		private readonly Dictionary<Circle, CircleSceneView> _circles;
+
+		private IPool<CircleSceneView> _circlesPool;
 
 		public GameFieldSceneViewController(GameManager gameManager)
 		{
 			_gameManager = gameManager;
+			_circles = new Dictionary<Circle, CircleSceneView>(4);
 
-			_gameManager.OnLevelChanged += () => { Init(new InitData(_gameManager.Level)); };
+			_gameManager.OnCircleConnected += OnCircleConnected;
 		}
 
-		protected override void HandleInit(InitData initData)
+		protected override void HandleInit()
 		{
-			View.DynamicObjectsContainer.transform.DestroyAllChildren();
+			var circlePrefab = Resources.Load<CircleSceneView>(Path.Combine("Prefabs", "CircleSceneView"));
+			_circlesPool = new MonoPool<CircleSceneView>(circlePrefab, View.DynamicObjectsContainer.transform);
 
-			View.Background.SetScale(initData.Level.GameFieldScale);
-			FillLevel(initData.Level);
+			_gameManager.OnLevelStarted += Refresh;
+		}
+
+		protected override void HandleRefresh()
+		{
+			View.Background.SetScale(_gameManager.Level.GameFieldScale);
+			FillLevel(_gameManager.Level);
 		}
 
 		private void FillLevel(Level level)
 		{
-			var circlePrefab = Resources.Load<CircleSceneView>(Path.Combine("Prefabs", "CircleSceneView"));
-
 			foreach (var circle in level.Circles)
 			{
-				var circleSceneView = Object.Instantiate(circlePrefab, View.DynamicObjectsContainer.transform);
+				var circleSceneView = _circlesPool.Get();
 				var circleSceneViewController = new CircleSceneViewController(_gameManager);
 				circleSceneViewController.SetView(circleSceneView);
-				circleSceneViewController.Init(new CircleSceneViewController.InitData(circle));
+				circleSceneViewController.Init(
+					new CircleSceneViewController.InitData(circle));
+
+				_circles.Add(circle, circleSceneView);
 			}
+		}
+
+		private void OnCircleConnected(Circle circle)
+		{
+			var circleSceneView = _circles[circle];
+			_circlesPool.Put(circleSceneView);
+
+			_circles.Remove(circle);
 		}
 	}
 }

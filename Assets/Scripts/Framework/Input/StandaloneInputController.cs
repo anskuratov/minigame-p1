@@ -35,8 +35,15 @@ namespace P1.Framework
 
 			if (Input.GetKey(KeyCode.Mouse0))
 			{
-				InputPointer.Position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				_currentDraggable?.Drag(InputPointer);
+				if (_currentDraggable?.Disabled ?? false)
+				{
+					_currentDraggable = null;
+				}
+				else
+				{
+					InputPointer.Position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					_currentDraggable?.Drag(InputPointer);
+				}
 			}
 		}
 	}

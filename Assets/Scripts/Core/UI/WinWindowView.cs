@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace P1.Core
 {
-	public class WinWindowView : BaseView
+	public class WinWindowView : View
 	{
 		[SerializeField] private Button _continueButton;
 		[SerializeField] private TMP_Text _coinsCountText;
@@ -14,36 +14,36 @@ namespace P1.Core
 		public TMP_Text CoinsCountText => _coinsCountText;
 	}
 
-	public class WinWindowViewController : BaseViewController<WinWindowView, WinWindowViewController.InitData>
+	public class WinWindowViewController : ViewController<WinWindowView>
 	{
-		public readonly struct InitData
-		{
-		}
-
 		private readonly GameManager _gameManager;
 
 		public WinWindowViewController(GameManager gameManager)
 		{
 			_gameManager = gameManager;
 
-			_gameManager.OnLevelChanged += () =>
+			_gameManager.OnLevelFinished += () =>
 			{
 				Refresh();
 				SetActive(true);
 			};
 		}
 
-		protected override void HandleInit(InitData initData)
+		protected override void HandleInit()
 		{
 			View.ContinueButton.onClick.RemoveAllListeners();
-			View.ContinueButton.onClick.AddListener(() => SetActive(false));
+			View.ContinueButton.onClick.AddListener(() =>
+			{
+				_gameManager.StartLevel();
+				SetActive(false);
+			});
 
 			Refresh();
 		}
 
 		protected override void HandleRefresh()
 		{
-			View.CoinsCountText.text = _gameManager.Level.Circles.Count.ToString();
+			View.CoinsCountText.text = _gameManager.CoinsCount.ToString();
 		}
 	}
 }

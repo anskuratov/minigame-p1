@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace P1.Core
 {
-	public class MenuWindowView : BaseView
+	public class MenuWindowView : View
 	{
 		[SerializeField] private Button _continueButton;
 		[SerializeField] private Button _shopButton;
@@ -13,13 +13,9 @@ namespace P1.Core
 		public Button ShopButton => _shopButton;
 	}
 
-	public class MenuWindowViewController : BaseViewController<MenuWindowView, MenuWindowViewController.InitData>
+	public class MenuWindowViewController : ViewController<MenuWindowView>
 	{
-		public readonly struct InitData
-		{
-		}
-
-		protected override void HandleInit(InitData initData)
+		protected override void HandleInit()
 		{
 			View.ContinueButton.onClick.RemoveAllListeners();
 			View.ContinueButton.onClick.AddListener(OnContinueButtonClick);

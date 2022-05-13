@@ -4,8 +4,10 @@ namespace P1.Core
 {
 	public class GameManager
 	{
-		public event Action OnLevelChanged;
+		public event Action OnLevelStarted;
+		public event Action OnLevelFinished;
 		public event Action OnCoinsChanged;
+		public event Action<Circle> OnCircleConnected;
 
 		public Level Level { get; private set; }
 		public int CoinsCount { get; private set; }
@@ -30,22 +32,26 @@ namespace P1.Core
 			SetCoins(_progressManager.CoinsCount);
 		}
 
-		public void ConnectCircle()
+		public void StartLevel()
+		{
+			_circlesCount = Level.Circles.Count;
+			OnLevelStarted?.Invoke();
+		}
+
+		public void ConnectCircle(Circle circle)
 		{
 			_circlesCount -= 1;
 			CheckLevelComplete();
+
+			OnCircleConnected?.Invoke(circle);
 		}
 
 		private void SetLevel(int levelId)
 		{
 			if (_statics.TryGetLevel(levelId, out var level))
 			{
-				_circlesCount = level.Circles.Count;
+				Level = level;
 			}
-
-			Level = level;
-
-			OnLevelChanged?.Invoke();
 		}
 
 		private void SetCoins(int coinsCount)
@@ -58,8 +64,10 @@ namespace P1.Core
 		{
 			if (_circlesCount == 0)
 			{
-				_progressManager.CoinsCount += Level.Circles.Count;
+				_progressManager.CoinsCount += Level.Circles.Count / 2;
 				_progressManager.CurrentLevelId = Level.NextLevelId;
+
+				OnLevelFinished?.Invoke();
 			}
 		}
 	}

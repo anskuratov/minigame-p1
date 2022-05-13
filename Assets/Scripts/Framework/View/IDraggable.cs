@@ -8,6 +8,8 @@ namespace P1.Framework
 		event Action OnDragEnded;
 		event Action<IPointer> OnDragged;
 
+		bool Disabled { get; }
+
 		void StartDrag();
 		void EndDrag();
 		void Drag(IPointer pointer);

@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace P1.Core
 {
-	public class CircleSceneView : DraggableView
+	public class CircleSceneView : DraggableView,
+		IReusable
 	{
 		[SerializeField] private SpriteRenderer _spriteRenderer;
 		[SerializeField] private LineRenderer _lineRenderer;
@@ -17,6 +18,9 @@ namespace P1.Core
 		public Canvas NumberCanvas => _numberCanvas;
 		public TMP_Text NumberText => _numberText;
 
+		// TODO: Это должна быть модель, доступная как из View так и из контроллера
+		public int Number { get; set; }
+
 		public event Action OnConnected;
 
 		public void Connect()
@@ -24,11 +28,21 @@ namespace P1.Core
 			OnConnected?.Invoke();
 		}
 
-		// TODO: Это должна быть модель, доступная как из View так и из контроллера
-		public int Number { get; set; }
+		public void Prepare()
+		{
+			Disabled = false;
+			_lineRenderer.positionCount = 2;
+		}
+
+		public void Release()
+		{
+			Disabled = true;
+			_lineRenderer.positionCount = 0;
+			SetPosition(new Vector3(0, 1000, 0));
+		}
 	}
 
-	public class CircleSceneViewController : BaseViewController<CircleSceneView, CircleSceneViewController.InitData>
+	public class CircleSceneViewController : ViewController<CircleSceneView, CircleSceneViewController.InitData>
 	{
 		public readonly struct InitData
 		{
@@ -42,8 +56,7 @@ namespace P1.Core
 
 		private readonly GameManager _gameManager;
 
-		private int _number;
-		private bool _isConnected;
+		private Circle _circle;
 
 		public CircleSceneViewController(GameManager gameManager)
 		{
@@ -52,11 +65,12 @@ namespace P1.Core
 
 		protected override void HandleInit(InitData initData)
 		{
-			_number = initData.Circle.Number;
+			_circle = initData.Circle;
+
 			View.NumberCanvas.worldCamera = Camera.main;
-			View.NumberText.text = initData.Circle.Number.ToString();
-			View.Number = initData.Circle.Number;
-			SetPosition(initData.Circle.Position);
+			View.NumberText.text = _circle.Number.ToString();
+			View.Number = _circle.Number;
+			SetPosition(_circle.Position);
 			SetColor();
 
 			View.OnConnected += OnConnected;
@@ -67,7 +81,7 @@ namespace P1.Core
 
 		private void SetColor()
 		{
-			if (ColorUtils.TryGetCircleColor(_number, out var color))
+			if (ColorUtils.TryGetCircleColor(_circle.Number, out var color))
 			{
 				View.SpriteRenderer.color = color;
 				View.LineRenderer.startColor = color;
@@ -86,7 +100,7 @@ namespace P1.Core
 			View.OnDragEnded -= OnDragEnded;
 			View.OnDragged -= OnDragged;
 
-			_gameManager.ConnectCircle();
+			_gameManager.ConnectCircle(_circle);
 		}
 
 		private void OnDragStarted()
@@ -113,8 +127,6 @@ namespace P1.Core
 				{
 					View.Connect();
 					circleSceneView.Connect();
-
-					View.LineRenderer.SetPosition(1, circleSceneView.transform.localPosition);
 				}
 			}
 		}
