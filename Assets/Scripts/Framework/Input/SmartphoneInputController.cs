@@ -13,13 +13,13 @@ namespace P1.Framework
 			if (Input.GetTouch(0).phase == TouchPhase.Began)
 			{
 				Start();
+				Interact();
 			}
-			else if (Input.GetTouch(0).phase == TouchPhase.Canceled)
+			else if (Input.GetTouch(0).phase == TouchPhase.Ended)
 			{
 				Stop();
 			}
-
-			if (Input.GetTouch(0).phase == TouchPhase.Moved)
+			else if (Input.GetTouch(0).phase == TouchPhase.Moved)
 			{
 				Interact();
 			}
