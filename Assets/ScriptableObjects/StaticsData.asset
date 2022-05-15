@@ -22,10 +22,54 @@ MonoBehaviour:
       _position: {x: 1, y: 0}
     _gameFieldScale: {x: 5, y: 5}
   - _id: 2
+    _nextLevelId: 3
+    _circles:
+    - _number: 1
+      _position: {x: 0, y: 1}
+    - _number: 1
+      _position: {x: 0, y: -1}
+    - _number: 2
+      _position: {x: -1, y: 1}
+    - _number: 2
+      _position: {x: -1, y: -1}
+    - _number: 3
+      _position: {x: 1, y: 1}
+    - _number: 3
+      _position: {x: 1, y: -1}
+    _gameFieldScale: {x: 5, y: 5}
+  - _id: 3
+    _nextLevelId: 4
+    _circles:
+    - _number: 5
+      _position: {x: -1, y: 0}
+    - _number: 5
+      _position: {x: 1, y: 1}
+    - _number: 6
+      _position: {x: 2, y: -1}
+    - _number: 6
+      _position: {x: -1, y: 1}
+    - _number: 7
+      _position: {x: 0, y: 0}
+    - _number: 7
+      _position: {x: 0, y: 2}
+    _gameFieldScale: {x: 5, y: 5}
+  - _id: 4
     _nextLevelId: 1
     _circles:
+    - _number: 1
+      _position: {x: -2, y: -2}
+    - _number: 1
+      _position: {x: 2, y: 2}
     - _number: 2
-      _position: {x: 0, y: 1}
+      _position: {x: -1, y: -1}
     - _number: 2
-      _position: {x: 0, y: -1}
+      _position: {x: 1, y: 1}
+    - _number: 3
+      _position: {x: 0, y: 0}
+    - _number: 3
+      _position: {x: -2, y: 2}
+    - _number: 4
+      _position: {x: -1, y: 0}
+    - _number: 4
+      _position: {x: 1, y: 0}
     _gameFieldScale: {x: 5, y: 5}
