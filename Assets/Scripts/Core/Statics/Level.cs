@@ -16,5 +16,13 @@ namespace P1.Core
 		public int NextLevelId => _nextLevelId;
 		public IReadOnlyCollection<Circle> Circles => _circles;
 		public Vector2 GameFieldScale => _gameFieldScale;
+
+		public Level(int id, int nextLevelId, Circle[] circles, Vector2 gameFieldScale)
+		{
+			_id = id;
+			_nextLevelId = nextLevelId;
+			_circles = circles;
+			_gameFieldScale = gameFieldScale;
+		}
 	}
 }

@@ -11,5 +11,11 @@ namespace P1.Core
 
 		public int Number => _number;
 		public Vector2 Position => _position;
+
+		public Circle(int number, Vector2 position)
+		{
+			_number = number;
+			_position = position;
+		}
 	}
 }

@@ -9,5 +9,10 @@ namespace P1.Core
 		[SerializeField] private Level[] _levels;
 
 		public IReadOnlyCollection<Level> Levels => _levels;
+
+		public void SetStaticsData(Level[] levels)
+		{
+			_levels = levels;
+		}
 	}
 }
