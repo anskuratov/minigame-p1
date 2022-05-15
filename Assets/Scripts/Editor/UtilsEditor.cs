@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace P1.Core
+namespace P1.Editor
 {
 	public static class UtilsEditor
 	{

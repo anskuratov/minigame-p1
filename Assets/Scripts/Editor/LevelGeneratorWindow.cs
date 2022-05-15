@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
+using P1.Core;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace P1.Core
+namespace P1.Editor
 {
 	public class LevelGeneratorWindow : EditorWindow
 	{
