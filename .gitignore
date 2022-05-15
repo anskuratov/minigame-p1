@@ -10,6 +10,9 @@
 /UserSettings/
 /obj/
 /Logs/
+/Build/
+CommonBurstAotSettings.json
+BurstAotSettings_*.json
 
 # Mac 
 .DS_Store
