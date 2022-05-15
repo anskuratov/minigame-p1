@@ -12,6 +12,8 @@ namespace P1.Core
 		[SerializeField] private FrameUpdater _frameUpdater;
 		[SerializeField] private FixedUpdater _fixedUpdater;
 
+		[SerializeField] private CameraSceneView _cameraSceneView; 
+
 		[SerializeField] private MenuWindowView _menuWindowView;
 		[SerializeField] private WinWindowView _winWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
@@ -25,6 +27,10 @@ namespace P1.Core
 
 			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
 			inputControllerFactory.Create();
+
+			var cameraController = new CameraSceneViewController(gameManager);
+			cameraController.SetView(_cameraSceneView);
+			cameraController.Init();
 
 			var menuWindowController = new MenuWindowViewController();
 			menuWindowController.SetView(_menuWindowView);
