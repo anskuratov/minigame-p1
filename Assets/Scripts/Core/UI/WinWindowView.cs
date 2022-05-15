@@ -43,7 +43,7 @@ namespace P1.Core
 
 		protected override void HandleRefresh()
 		{
-			View.CoinsCountText.text = _gameManager.CoinsCount.ToString();
+			View.CoinsCountText.text = (_gameManager.Level.Circles.Count / 2).ToString();
 		}
 	}
 }
