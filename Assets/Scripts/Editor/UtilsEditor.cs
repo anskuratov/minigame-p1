@@ -5,7 +5,7 @@ namespace P1.Editor
 {
 	public static class UtilsEditor
 	{
-		[MenuItem("AS / Reset progress")]
+		[MenuItem("AS/Reset progress")]
 		public static void ResetProgress()
 		{
 			PlayerPrefs.DeleteAll();

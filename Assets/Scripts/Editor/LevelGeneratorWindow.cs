@@ -9,7 +9,7 @@ namespace P1.Editor
 {
 	public class LevelGeneratorWindow : EditorWindow
 	{
-		[MenuItem("AS / Level Generator")]
+		[MenuItem("AS/Level Generator")]
 		public static void Open()
 		{
 			GetWindow(typeof(LevelGeneratorWindow));
