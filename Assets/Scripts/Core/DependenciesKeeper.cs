@@ -18,6 +18,7 @@ namespace P1.Core
 		[SerializeField] private WinWindowView _winWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
 		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
+		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
 
 		private void Awake()
 		{
@@ -49,6 +50,10 @@ namespace P1.Core
 			var gameOverlayController = new GameOverlayUiViewController(gameManager, menuWindowController);
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init();
+
+			var tutorialHandHintController = new TutorialHandHintUiViewController(gameManager);
+			tutorialHandHintController.SetView(_tutorialHandHint);
+			tutorialHandHintController.Init();
 
 			gameManager.StartLevel();
 		}
