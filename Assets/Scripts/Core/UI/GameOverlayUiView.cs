@@ -8,12 +8,10 @@ namespace P1.Core
 	public class GameOverlayUiView : View
 	{
 		[SerializeField] private Button _menuButton;
-		[SerializeField] private TMP_Text _coinsCountText;
 		[SerializeField] private TMP_Text _levelText;
 		[SerializeField] private CountdownTimerUiView _countdownTimerUiView;
 
 		public Button MenuButton => _menuButton;
-		public TMP_Text CoinsCountText => _coinsCountText;
 		public TMP_Text LevelText => _levelText;
 		public CountdownTimerUiView CountdownTimerUiView => _countdownTimerUiView;
 	}
@@ -32,7 +30,6 @@ namespace P1.Core
 			_menuWindowViewController = menuWindowViewController;
 			_frameUpdater = frameUpdater;
 
-			_gameManager.OnCoinsChanged += Refresh;
 			_gameManager.OnLevelStarted += Refresh;
 		}
 
@@ -50,8 +47,6 @@ namespace P1.Core
 		protected override void HandleRefresh()
 		{
 			View.MenuButton.gameObject.SetActive(_gameManager.Level.Id > 3);
-
-			View.CoinsCountText.text = _gameManager.CoinsCount.ToString();
 			View.LevelText.text = _gameManager.Level.Id.ToString();
 		}
 
