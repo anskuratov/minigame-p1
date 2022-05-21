@@ -9,11 +9,13 @@ namespace P1.Core
 	{
 		[SerializeField] private Button _nextButton;
 		[SerializeField] private Button _retryButton;
+		[SerializeField] private View _rewardContainer;
 		[SerializeField] private TMP_Text _resultText;
 		[SerializeField] private TMP_Text _coinsCountText;
 
 		public Button NextButton => _nextButton;
 		public Button RetryButton => _retryButton;
+		public View RewardContainer => _rewardContainer;
 		public TMP_Text ResultText => _resultText;
 		public TMP_Text CoinsCountText => _coinsCountText;
 	}
@@ -57,9 +59,9 @@ namespace P1.Core
 			else if (_gameManager.LevelResult == LevelResult.Defeat)
 			{
 				View.ResultText.text = "Cheer up!";
-				View.CoinsCountText.text = 0.ToString();
 			}
 
+			View.RewardContainer.SetActive(_gameManager.LevelResult == LevelResult.Win);
 			View.NextButton.gameObject.SetActive(_gameManager.LevelResult == LevelResult.Win);
 			View.RetryButton.gameObject.SetActive(_gameManager.LevelResult == LevelResult.Defeat);
 		}
