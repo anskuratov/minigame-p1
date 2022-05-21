@@ -46,6 +46,8 @@ namespace P1.Core
 
 		private void FillLevel(Level level)
 		{
+			Clear();
+
 			foreach (var circle in level.Circles)
 			{
 				var circleSceneView = _circlesPool.Get();
@@ -64,6 +66,16 @@ namespace P1.Core
 			_circlesPool.Put(circleSceneView);
 
 			_circles.Remove(circle);
+		}
+
+		private void Clear()
+		{
+			foreach (var circleSceneView in _circles.Values)
+			{
+				_circlesPool.Put(circleSceneView);
+			}
+
+			_circles.Clear();
 		}
 	}
 }

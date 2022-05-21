@@ -47,7 +47,8 @@ namespace P1.Core
 			gameFieldController.SetView(_gameFieldSceneView);
 			gameFieldController.Init();
 
-			var gameOverlayController = new GameOverlayUiViewController(gameManager, menuWindowController);
+			var gameOverlayController =
+				new GameOverlayUiViewController(gameManager, menuWindowController, _frameUpdater);
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init();
 

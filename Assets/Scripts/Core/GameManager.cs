@@ -47,6 +47,11 @@ namespace P1.Core
 			OnCircleConnected?.Invoke(circle);
 		}
 
+		public void TimeIsUp()
+		{
+			OnLevelFinished?.Invoke();
+		}
+
 		private void SetLevel(int levelId)
 		{
 			if (_statics.TryGetLevel(levelId, out var level))

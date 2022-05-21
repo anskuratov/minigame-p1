@@ -10,10 +10,12 @@ namespace P1.Core
 		[SerializeField] private Button _menuButton;
 		[SerializeField] private TMP_Text _coinsCountText;
 		[SerializeField] private TMP_Text _levelText;
+		[SerializeField] private CountdownTimerUiView _countdownTimerUiView;
 
 		public Button MenuButton => _menuButton;
 		public TMP_Text CoinsCountText => _coinsCountText;
 		public TMP_Text LevelText => _levelText;
+		public CountdownTimerUiView CountdownTimerUiView => _countdownTimerUiView;
 	}
 
 	public class GameOverlayUiViewController :
@@ -21,11 +23,14 @@ namespace P1.Core
 	{
 		private readonly GameManager _gameManager;
 		private readonly MenuWindowViewController _menuWindowViewController;
+		private readonly IUpdater _frameUpdater;
 
-		public GameOverlayUiViewController(GameManager gameManager, MenuWindowViewController menuWindowViewController)
+		public GameOverlayUiViewController(GameManager gameManager, MenuWindowViewController menuWindowViewController,
+			IUpdater frameUpdater)
 		{
 			_gameManager = gameManager;
 			_menuWindowViewController = menuWindowViewController;
+			_frameUpdater = frameUpdater;
 
 			_gameManager.OnCoinsChanged += Refresh;
 			_gameManager.OnLevelStarted += Refresh;
@@ -33,7 +38,12 @@ namespace P1.Core
 
 		protected override void HandleInit()
 		{
+			var countdownTimerController = new CountdownTimerUiViewController(_gameManager, _frameUpdater);
+			countdownTimerController.SetView(View.CountdownTimerUiView);
+			countdownTimerController.Init();
+
 			View.MenuButton.onClick.AddListener(OnMenuButtonClick);
+
 			Refresh();
 		}
 

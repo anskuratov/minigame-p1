@@ -82,7 +82,7 @@ namespace P1.Editor
 						levels.Remove(levelToDelete);
 					}
 
-					levels.Add(new Level(i, i + 1, circles.ToArray(), _gameFieldSize));
+					levels.Add(new Level(i, i + 1, circles.ToArray(), _gameFieldSize, 0));
 				}
 
 				staticsData.SetStaticsData(levels.ToArray());
