@@ -38,7 +38,8 @@ namespace P1.Core
 		public void Update(double deltaTime)
 		{
 			if (_currentTimerValue <= 0
-				|| _gameManager.LevelResult != LevelResult.None)
+				|| _gameManager.LevelResult != LevelResult.None
+				|| _gameManager.IsPaused)
 			{
 				return;
 			}

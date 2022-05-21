@@ -33,7 +33,7 @@ namespace P1.Core
 			cameraController.SetView(_cameraSceneView);
 			cameraController.Init();
 
-			var menuWindowController = new MenuWindowViewController();
+			var menuWindowController = new MenuWindowViewController(gameManager);
 			menuWindowController.SetView(_menuWindowView);
 			menuWindowController.Init();
 			menuWindowController.SetActive(false);

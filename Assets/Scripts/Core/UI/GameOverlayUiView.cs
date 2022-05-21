@@ -55,6 +55,7 @@ namespace P1.Core
 
 		private void OnMenuButtonClick()
 		{
+			_gameManager.Pause(true);
 			_menuWindowViewController.SetActive(true);
 		}
 	}

@@ -13,6 +13,7 @@ namespace P1.Core
 		public int CoinsCount { get; private set; }
 		public int CoinsReward { get; private set; }
 		public LevelResult LevelResult { get; private set; }
+		public bool IsPaused { get; private set; }
 
 		private readonly IStatics _statics;
 		private readonly ProgressManager _progressManager;
@@ -54,6 +55,11 @@ namespace P1.Core
 		{
 			LevelResult = LevelResult.Defeat;
 			OnLevelFinished?.Invoke();
+		}
+
+		public void Pause(bool value)
+		{
+			IsPaused = value;
 		}
 
 		private void SetLevel(int levelId)

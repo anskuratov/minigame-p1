@@ -15,6 +15,13 @@ namespace P1.Core
 
 	public class MenuWindowViewController : ViewController<MenuWindowView>
 	{
+		private readonly GameManager _gameManager;
+
+		public MenuWindowViewController(GameManager gameManager)
+		{
+			_gameManager = gameManager;
+		}
+
 		protected override void HandleInit()
 		{
 			View.ContinueButton.onClick.RemoveAllListeners();
@@ -26,6 +33,7 @@ namespace P1.Core
 
 		private void OnContinueButtonClick()
 		{
+			_gameManager.Pause(false);
 			SetActive(false);
 		}
 
