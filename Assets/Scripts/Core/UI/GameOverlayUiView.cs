@@ -49,6 +49,8 @@ namespace P1.Core
 
 		protected override void HandleRefresh()
 		{
+			View.MenuButton.gameObject.SetActive(_gameManager.Level.Id > 3);
+
 			View.CoinsCountText.text = _gameManager.CoinsCount.ToString();
 			View.LevelText.text = _gameManager.Level.Id.ToString();
 		}
