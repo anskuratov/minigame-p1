@@ -9,9 +9,11 @@ namespace P1.Core
 	{
 		[SerializeField] private Button _menuButton;
 		[SerializeField] private TMP_Text _coinsCountText;
+		[SerializeField] private TMP_Text _levelText;
 
 		public Button MenuButton => _menuButton;
 		public TMP_Text CoinsCountText => _coinsCountText;
+		public TMP_Text LevelText => _levelText;
 	}
 
 	public class GameOverlayUiViewController :
@@ -26,6 +28,7 @@ namespace P1.Core
 			_menuWindowViewController = menuWindowViewController;
 
 			_gameManager.OnCoinsChanged += Refresh;
+			_gameManager.OnLevelStarted += Refresh;
 		}
 
 		protected override void HandleInit()
@@ -37,6 +40,7 @@ namespace P1.Core
 		protected override void HandleRefresh()
 		{
 			View.CoinsCountText.text = _gameManager.CoinsCount.ToString();
+			View.LevelText.text = _gameManager.Level.Id.ToString();
 		}
 
 		private void OnMenuButtonClick()
