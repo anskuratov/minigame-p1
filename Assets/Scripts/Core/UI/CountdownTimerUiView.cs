@@ -37,7 +37,8 @@ namespace P1.Core
 
 		public void Update(double deltaTime)
 		{
-			if (_currentTimerValue <= 0)
+			if (_currentTimerValue <= 0
+				|| _gameManager.LevelResult != LevelResult.None)
 			{
 				return;
 			}
@@ -68,6 +69,11 @@ namespace P1.Core
 			{
 				_currentTimerValue = timerValueInSeconds;
 				SetActive(true);
+			}
+			else
+			{
+				_currentTimerValue = 0;
+				SetActive(false);
 			}
 		}
 

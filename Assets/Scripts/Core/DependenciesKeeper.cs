@@ -15,7 +15,7 @@ namespace P1.Core
 		[SerializeField] private CameraSceneView _cameraSceneView; 
 
 		[SerializeField] private MenuWindowView _menuWindowView;
-		[SerializeField] private WinWindowView _winWindowView;
+		[SerializeField] private ResultWindowView resultWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
 		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
 		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
@@ -38,8 +38,8 @@ namespace P1.Core
 			menuWindowController.Init();
 			menuWindowController.SetActive(false);
 
-			var winWindowController = new WinWindowViewController(gameManager);
-			winWindowController.SetView(_winWindowView);
+			var winWindowController = new ResultWindowViewController(gameManager);
+			winWindowController.SetView(resultWindowView);
 			winWindowController.Init();
 			winWindowController.SetActive(false);
 

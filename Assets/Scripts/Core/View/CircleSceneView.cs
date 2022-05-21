@@ -22,6 +22,7 @@ namespace P1.Core
 		public int Number { get; set; }
 
 		public event Action OnConnected;
+		public event Action OnReleased;
 
 		public void Connect()
 		{
@@ -39,6 +40,8 @@ namespace P1.Core
 			Disabled = true;
 			_lineRenderer.positionCount = 0;
 			SetPosition(new Vector3(0, 1000, 0));
+
+			OnReleased?.Invoke();
 		}
 	}
 
@@ -74,6 +77,7 @@ namespace P1.Core
 			SetColor();
 
 			View.OnConnected += OnConnected;
+			View.OnReleased += OnReleased;
 			View.OnDragStarted += OnDragStarted;
 			View.OnDragEnded += OnDragEnded;
 			View.OnDragged += OnDragged;
@@ -95,12 +99,16 @@ namespace P1.Core
 
 		private void OnConnected()
 		{
+			_gameManager.ConnectCircle(_circle);
+		}
+
+		private void OnReleased()
+		{
 			View.OnConnected -= OnConnected;
+			View.OnReleased -= OnReleased;
 			View.OnDragStarted -= OnDragStarted;
 			View.OnDragEnded -= OnDragEnded;
 			View.OnDragged -= OnDragged;
-
-			_gameManager.ConnectCircle(_circle);
 		}
 
 		private void OnDragStarted()

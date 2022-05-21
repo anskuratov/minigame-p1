@@ -12,6 +12,7 @@ namespace P1.Core
 		public Level Level { get; private set; }
 		public int CoinsCount { get; private set; }
 		public int CoinsReward { get; private set; }
+		public LevelResult LevelResult { get; private set; }
 
 		private readonly IStatics _statics;
 		private readonly ProgressManager _progressManager;
@@ -35,7 +36,9 @@ namespace P1.Core
 
 		public void StartLevel()
 		{
+			LevelResult = LevelResult.None;
 			_circlesCount = Level.Circles.Count;
+
 			OnLevelStarted?.Invoke();
 		}
 
@@ -49,6 +52,7 @@ namespace P1.Core
 
 		public void TimeIsUp()
 		{
+			LevelResult = LevelResult.Defeat;
 			OnLevelFinished?.Invoke();
 		}
 
@@ -70,7 +74,9 @@ namespace P1.Core
 		{
 			if (_circlesCount == 0)
 			{
+				LevelResult = LevelResult.Win;
 				CoinsReward = Level.Circles.Count / 2;
+
 				_progressManager.CoinsCount += CoinsReward;
 				_progressManager.CurrentLevelId = Level.NextLevelId;
 
