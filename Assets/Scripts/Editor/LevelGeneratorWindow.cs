@@ -18,6 +18,7 @@ namespace P1.Editor
 		private int _startId;
 		private int _endId;
 		private Vector2 _gameFieldSize;
+		private float _secondsForConnection;
 
 		private void OnGUI()
 		{
@@ -26,6 +27,7 @@ namespace P1.Editor
 			_startId = EditorGUILayout.IntField("Start ID", _startId);
 			_endId = EditorGUILayout.IntField("End ID", _endId);
 			_gameFieldSize = EditorGUILayout.Vector2Field("Game field size", _gameFieldSize);
+			_secondsForConnection = EditorGUILayout.FloatField("Seconds for connection", _secondsForConnection);
 
 			if (GUILayout.Button("Generate"))
 			{
@@ -82,7 +84,12 @@ namespace P1.Editor
 						levels.Remove(levelToDelete);
 					}
 
-					levels.Add(new Level(i, i + 1, circles.ToArray(), _gameFieldSize, 0));
+					levels.Add(new Level(
+						i,
+						i + 1,
+						circles.ToArray(),
+						_gameFieldSize,
+						circles.Count * _secondsForConnection / 2));
 				}
 
 				staticsData.SetStaticsData(levels.ToArray());
