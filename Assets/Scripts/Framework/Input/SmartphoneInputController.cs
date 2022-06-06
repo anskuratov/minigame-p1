@@ -10,18 +10,21 @@ namespace P1.Framework
 
 		protected override void HandleUpdate(double deltaTime)
 		{
-			if (Input.GetTouch(0).phase == TouchPhase.Began)
+			if (Input.touches.Length > 0)
 			{
-				Start();
-				Interact();
-			}
-			else if (Input.GetTouch(0).phase == TouchPhase.Ended)
-			{
-				Stop();
-			}
-			else if (Input.GetTouch(0).phase == TouchPhase.Moved)
-			{
-				Interact();
+				if (Input.GetTouch(0).phase == TouchPhase.Began)
+				{
+					Start();
+					Interact();
+				}
+				else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+				{
+					Stop();
+				}
+				else if (Input.GetTouch(0).phase == TouchPhase.Moved)
+				{
+					Interact();
+				}
 			}
 		}
 	}
