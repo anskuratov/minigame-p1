@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace P1.Core
 {
@@ -18,6 +19,7 @@ namespace P1.Core
 		private readonly IStatics _statics;
 		private readonly ProgressManager _progressManager;
 
+		private Circle _previousCircle;
 		private int _circlesCount;
 
 		public GameManager(IStatics statics)
@@ -39,6 +41,7 @@ namespace P1.Core
 		{
 			LevelResult = LevelResult.None;
 			_circlesCount = Level.Circles.Count;
+			_previousCircle = new Circle(0, Vector2.zero);
 
 			OnLevelStarted?.Invoke();
 		}
@@ -46,12 +49,22 @@ namespace P1.Core
 		public void ConnectCircle(Circle circle)
 		{
 			_circlesCount -= 1;
-			CheckLevelComplete();
+
+			if (circle.Number == _previousCircle.Number + 1
+				|| circle.Number == _previousCircle.Number)
+			{
+				CheckLevelComplete();
+				_previousCircle = circle;
+			}
+			else
+			{
+				Defeat();
+			}
 
 			OnCircleConnected?.Invoke(circle);
 		}
 
-		public void TimeIsUp()
+		public void Defeat()
 		{
 			LevelResult = LevelResult.Defeat;
 			OnLevelFinished?.Invoke();

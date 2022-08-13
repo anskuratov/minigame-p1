@@ -58,7 +58,7 @@ namespace P1.Core
 
 			if (_currentTimerValue <= 0)
 			{
-				_gameManager.TimeIsUp();
+				_gameManager.Defeat();
 			}
 		}
 
