@@ -1,5 +1,6 @@
 using P1.Framework;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace P1.Core
 {
@@ -15,7 +16,7 @@ namespace P1.Core
 		[SerializeField] private CameraSceneView _cameraSceneView; 
 
 		[SerializeField] private MenuWindowView _menuWindowView;
-		[SerializeField] private ResultWindowView resultWindowView;
+		[SerializeField] private ResultWindowView _resultWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
 		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
 		[SerializeField] private MainOverlayUiView _mainOverlayUiView;
@@ -40,7 +41,7 @@ namespace P1.Core
 			menuWindowController.SetActive(false);
 
 			var winWindowController = new ResultWindowViewController(gameManager);
-			winWindowController.SetView(resultWindowView);
+			winWindowController.SetView(_resultWindowView);
 			winWindowController.Init();
 			winWindowController.SetActive(false);
 
