@@ -1,6 +1,5 @@
 using P1.Framework;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace P1.Core
 {

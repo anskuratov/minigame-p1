@@ -58,10 +58,11 @@ namespace P1.Core
 			}
 			else if (_gameManager.LevelResult == LevelResult.Defeat)
 			{
-				View.ResultText.text = "Cheer up!";
+				View.ResultText.text = "Try again!";
 			}
 
-			View.RewardContainer.SetActive(_gameManager.LevelResult == LevelResult.Win);
+			View.RewardContainer.SetActive(_gameManager.LevelResult == LevelResult.Win
+				&& View.RewardContainer.isActiveAndEnabled);
 			View.NextButton.gameObject.SetActive(_gameManager.LevelResult == LevelResult.Win);
 			View.RetryButton.gameObject.SetActive(_gameManager.LevelResult == LevelResult.Defeat);
 		}
