@@ -25609,7 +25609,7 @@ MonoBehaviour:
     _gameFieldScale: {x: 8, y: 10}
     _timerValueInSeconds: 80
   - _id: 200
-    _nextLevelId: 151
+    _nextLevelId: 101
     _circles:
     - _number: 1
       _position: {x: -0.5, y: -1.5}
