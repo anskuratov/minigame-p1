@@ -21,47 +21,69 @@ namespace P1.Core
 		[SerializeField] private MainOverlayUiView _mainOverlayUiView;
 		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
 
+		private GameManager _gameManager;
+		private GoogleMobileAds _googleMobileAds;
+
 		private void Awake()
 		{
-			var statics = new Statics(_staticsData);
-			var gameManager = new GameManager(statics);
-			gameManager.Init();
+			InitGame();
+			InitAds();
 
 			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
 			inputControllerFactory.Create();
 
-			var cameraController = new CameraSceneViewController(gameManager);
+			var cameraController = new CameraSceneViewController(_gameManager);
 			cameraController.SetView(_cameraSceneView);
 			cameraController.Init();
 
-			var menuWindowController = new MenuWindowViewController(gameManager);
+			var menuWindowController = new MenuWindowViewController(_gameManager);
 			menuWindowController.SetView(_menuWindowView);
 			menuWindowController.Init();
 			menuWindowController.SetActive(false);
 
-			var winWindowController = new ResultWindowViewController(gameManager);
+			var winWindowController = new ResultWindowViewController(_gameManager);
 			winWindowController.SetView(_resultWindowView);
 			winWindowController.Init();
 			winWindowController.SetActive(false);
 
-			var gameFieldController = new GameFieldSceneViewController(gameManager);
+			var gameFieldController = new GameFieldSceneViewController(_gameManager);
 			gameFieldController.SetView(_gameFieldSceneView);
 			gameFieldController.Init();
 
 			var gameOverlayController =
-				new GameOverlayUiViewController(gameManager, menuWindowController, _frameUpdater);
+				new GameOverlayUiViewController(_gameManager, menuWindowController, _frameUpdater);
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init();
 
-			var mainOverlayController = new MainOverlayUiViewController(gameManager);
+			var mainOverlayController = new MainOverlayUiViewController(_gameManager);
 			mainOverlayController.SetView(_mainOverlayUiView);
 			mainOverlayController.Init();
 
-			var tutorialHandHintController = new TutorialHandHintUiViewController(gameManager);
+			var tutorialHandHintController = new TutorialHandHintUiViewController(_gameManager);
 			tutorialHandHintController.SetView(_tutorialHandHint);
 			tutorialHandHintController.Init();
+		}
 
-			gameManager.StartLevel();
+		private void Start()
+		{
+			_gameManager.StartLevel();
+		}
+
+		private void InitGame()
+		{
+			var statics = new Statics(_staticsData);
+			_gameManager = new GameManager(statics);
+			_gameManager.Init();
+		}
+
+		private void InitAds()
+		{
+			_googleMobileAds = new GoogleMobileAds();
+
+			_ = new AdBannerController(_googleMobileAds);
+			_ = new InterstitialAdController(_googleMobileAds, _gameManager);
+
+			_googleMobileAds.Init();
 		}
 	}
 }

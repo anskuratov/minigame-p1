@@ -1789,7 +1789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5960605333778300857, guid: 154a2f561fa0e4d27973c640c5c23f07, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.07
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5960605333778300857, guid: 154a2f561fa0e4d27973c640c5c23f07, type: 3}
       propertyPath: m_SizeDelta.x
