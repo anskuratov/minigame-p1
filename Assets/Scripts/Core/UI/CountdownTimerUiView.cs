@@ -49,6 +49,10 @@ namespace P1.Core
 			{
 				View.TimerText.color = Color.red;
 			}
+			else if (View.TimerText.color != Color.white)
+			{
+				View.TimerText.color = Color.white;
+			}
 
 			var minutes = Mathf.FloorToInt(_currentTimerValue / 60);
 			var seconds = Mathf.FloorToInt(_currentTimerValue % 60);
