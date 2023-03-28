@@ -2,18 +2,18 @@ using GoogleMobileAds.Api;
 
 namespace P1.Core
 {
-	public class AdBannerController
+	public class BannerAdController
 	{
 		private const string AdUnitId =
 #if UNITY_ANDROID
-		"ca-app-pub-3940256099942544/6300978111";
+			"ca-app-pub-3940256099942544/6300978111";
 #elif UNITY_IPHONE
-		"ca-app-pub-3940256099942544/2934735716";
+			"ca-app-pub-3940256099942544/2934735716";
 #else
-		"unused";
+			"unused";
 #endif
 
-		public AdBannerController(IGoogleMobileAds googleMobileAds)
+		public BannerAdController(IGoogleMobileAds googleMobileAds)
 		{
 			googleMobileAds.OnInitialized += OnGoogleMobileAdsInitialized;
 		}
@@ -34,7 +34,8 @@ namespace P1.Core
 
 		private void CreateDefaultBanner()
 		{
-			_ = new BannerView(AdUnitId, AdSize.Banner, AdPosition.Bottom);
+			var bannerView = new BannerView(AdUnitId, AdSize.IABBanner, AdPosition.Bottom);
+			bannerView.Show();
 		}
 	}
 }
