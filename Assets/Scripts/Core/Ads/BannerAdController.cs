@@ -6,9 +6,9 @@ namespace P1.Core
 	{
 		private const string AdUnitId =
 #if UNITY_ANDROID
-			"ca-app-pub-3940256099942544/6300978111";
+			"ca-app-pub-5513167403112618/9015123859";
 #elif UNITY_IPHONE
-			"ca-app-pub-3940256099942544/2934735716";
+			"unknown";
 #else
 			"unused";
 #endif

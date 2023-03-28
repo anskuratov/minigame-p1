@@ -6,9 +6,9 @@ namespace P1.Core
 	{
 		private const string AdUnitId =
 #if UNITY_ANDROID
-			"ca-app-pub-3940256099942544/1033173712";
+			"ca-app-pub-5513167403112618/8178089873";
 #elif UNITY_IPHONE
-			"ca-app-pub-3940256099942544/4411468910";
+			"unknown";
 #else
 			"unused";
 #endif
@@ -75,7 +75,9 @@ namespace P1.Core
 		{
 			if (_isEnabled)
 			{
-				if (_interstitialAd != null && _interstitialAd.CanShowAd())
+				if (_interstitialAd != null
+					&& _interstitialAd.CanShowAd()
+					&& _gameManager.LevelResult == LevelResult.Win)
 				{
 					_interstitialAd.Show();
 				}
