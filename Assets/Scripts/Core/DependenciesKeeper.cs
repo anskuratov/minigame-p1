@@ -29,6 +29,9 @@ namespace P1.Core
 			InitGame();
 			InitAds();
 
+			var settingsController = new SettingsController();
+			settingsController.Init();
+
 			var inputControllerFactory = new InputControllerFactory(_frameUpdater);
 			inputControllerFactory.Create();
 
