@@ -1,3 +1,4 @@
+using System.Text;
 using P1.Framework;
 using TMPro;
 using UnityEngine;
@@ -23,12 +24,16 @@ namespace P1.Core
 		private readonly MenuWindowViewController _menuWindowViewController;
 		private readonly IUpdater _frameUpdater;
 
+		private readonly StringBuilder _levelStringBuilder;
+
 		public GameOverlayUiViewController(GameManager gameManager, MenuWindowViewController menuWindowViewController,
 			IUpdater frameUpdater)
 		{
 			_gameManager = gameManager;
 			_menuWindowViewController = menuWindowViewController;
 			_frameUpdater = frameUpdater;
+
+			_levelStringBuilder = new StringBuilder();
 
 			_gameManager.OnLevelStarted += Refresh;
 		}
@@ -47,7 +52,11 @@ namespace P1.Core
 		protected override void HandleRefresh()
 		{
 			View.MenuButton.gameObject.SetActive(_gameManager.Level.Id > 3);
-			View.LevelText.text = _gameManager.Level.Id.ToString();
+
+			_levelStringBuilder.Clear();
+			_levelStringBuilder.Append("Level ");
+			_levelStringBuilder.Append(_gameManager.Level.Id.ToString());
+			View.LevelText.text = _levelStringBuilder.ToString();
 		}
 
 		private void OnMenuButtonClick()
