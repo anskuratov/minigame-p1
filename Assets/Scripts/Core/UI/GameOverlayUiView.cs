@@ -10,10 +10,12 @@ namespace P1.Core
 	{
 		[SerializeField] private Button _menuButton;
 		[SerializeField] private TMP_Text _levelText;
+		[SerializeField] private TMP_Text _fieldParametersText;
 		[SerializeField] private CountdownTimerUiView _countdownTimerUiView;
 
 		public Button MenuButton => _menuButton;
 		public TMP_Text LevelText => _levelText;
+		public TMP_Text FieldParametersText => _fieldParametersText;
 		public CountdownTimerUiView CountdownTimerUiView => _countdownTimerUiView;
 	}
 
@@ -25,6 +27,7 @@ namespace P1.Core
 		private readonly IUpdater _frameUpdater;
 
 		private readonly StringBuilder _levelStringBuilder;
+		private readonly StringBuilder _fieldParametersBuilder;
 
 		public GameOverlayUiViewController(GameManager gameManager, MenuWindowViewController menuWindowViewController,
 			IUpdater frameUpdater)
@@ -34,6 +37,7 @@ namespace P1.Core
 			_frameUpdater = frameUpdater;
 
 			_levelStringBuilder = new StringBuilder();
+			_fieldParametersBuilder = new StringBuilder();
 
 			_gameManager.OnLevelStarted += Refresh;
 		}
@@ -57,6 +61,12 @@ namespace P1.Core
 			_levelStringBuilder.Append("Level ");
 			_levelStringBuilder.Append(_gameManager.Level.Id.ToString());
 			View.LevelText.text = _levelStringBuilder.ToString();
+
+			_fieldParametersBuilder.Clear();
+			_fieldParametersBuilder.Append(_gameManager.Level.GameFieldScale.x);
+			_fieldParametersBuilder.Append(":");
+			_fieldParametersBuilder.Append(_gameManager.Level.GameFieldScale.y);
+			View.FieldParametersText.text = _fieldParametersBuilder.ToString();
 		}
 
 		private void OnMenuButtonClick()

@@ -44,14 +44,15 @@ namespace P1.Core
 				return;
 			}
 
-			if (_currentTimerValue <= 10
-				&& View.TimerText.color != Color.red)
+			var timerColor = View.TimerText.color = Color.white;
+			if (_currentTimerValue <= 10)
 			{
-				View.TimerText.color = Color.red;
+				timerColor = Color.red;
 			}
-			else if (View.TimerText.color != Color.white)
+
+			if (View.TimerText.color != timerColor)
 			{
-				View.TimerText.color = Color.white;
+				View.TimerText.color = timerColor;
 			}
 
 			var minutes = Mathf.FloorToInt(_currentTimerValue / 60);
