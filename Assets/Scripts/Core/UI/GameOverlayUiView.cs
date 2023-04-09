@@ -12,16 +12,19 @@ namespace P1.Core
 		[SerializeField] private TMP_Text _levelText;
 		[SerializeField] private TMP_Text _fieldParametersText;
 		[SerializeField] private CountdownTimerUiView _countdownTimerUiView;
+		[SerializeField] private DifficultyProgressUiView _difficultyProgressUiView;
 
 		public Button MenuButton => _menuButton;
 		public TMP_Text LevelText => _levelText;
 		public TMP_Text FieldParametersText => _fieldParametersText;
 		public CountdownTimerUiView CountdownTimerUiView => _countdownTimerUiView;
+		public DifficultyProgressUiView DifficultyProgressUiView => _difficultyProgressUiView;
 	}
 
 	public class GameOverlayUiViewController :
 		ViewController<GameOverlayUiView>
 	{
+		private readonly IStatics _statics;
 		private readonly GameManager _gameManager;
 		private readonly MenuWindowViewController _menuWindowViewController;
 		private readonly IUpdater _frameUpdater;
@@ -29,9 +32,10 @@ namespace P1.Core
 		private readonly StringBuilder _levelStringBuilder;
 		private readonly StringBuilder _fieldParametersBuilder;
 
-		public GameOverlayUiViewController(GameManager gameManager, MenuWindowViewController menuWindowViewController,
+		public GameOverlayUiViewController(IStatics statics, GameManager gameManager, MenuWindowViewController menuWindowViewController,
 			IUpdater frameUpdater)
 		{
+			_statics = statics;
 			_gameManager = gameManager;
 			_menuWindowViewController = menuWindowViewController;
 			_frameUpdater = frameUpdater;
@@ -47,6 +51,10 @@ namespace P1.Core
 			var countdownTimerController = new CountdownTimerUiViewController(_gameManager, _frameUpdater);
 			countdownTimerController.SetView(View.CountdownTimerUiView);
 			countdownTimerController.Init();
+
+			var difficultyProgressController = new DifficultyProgressUiViewController(_statics, _gameManager);
+			difficultyProgressController.SetView(View.DifficultyProgressUiView);
+			difficultyProgressController.Init();
 
 			View.MenuButton.onClick.AddListener(OnMenuButtonClick);
 

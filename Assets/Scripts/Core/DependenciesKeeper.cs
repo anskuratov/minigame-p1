@@ -21,6 +21,7 @@ namespace P1.Core
 		[SerializeField] private MainOverlayUiView _mainOverlayUiView;
 		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
 
+		private IStatics _statics;
 		private GameManager _gameManager;
 		private GoogleMobileAds _googleMobileAds;
 
@@ -54,7 +55,7 @@ namespace P1.Core
 			gameFieldController.Init();
 
 			var gameOverlayController =
-				new GameOverlayUiViewController(_gameManager, menuWindowController, _frameUpdater);
+				new GameOverlayUiViewController(_statics, _gameManager, menuWindowController, _frameUpdater);
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init();
 
@@ -74,8 +75,8 @@ namespace P1.Core
 
 		private void InitGame()
 		{
-			var statics = new Statics(_staticsData);
-			_gameManager = new GameManager(statics);
+			_statics = new Statics(_staticsData);
+			_gameManager = new GameManager(_statics);
 			_gameManager.Init();
 		}
 

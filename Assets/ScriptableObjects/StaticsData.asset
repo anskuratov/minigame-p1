@@ -25773,3 +25773,16 @@ MonoBehaviour:
       _position: {x: -1.5, y: 1.5}
     _gameFieldScale: {x: 8, y: 10}
     _timerValueInSeconds: 80
+  _chapters:
+  - _chapterName: Easy
+    _startChapterLevelId: 1
+    _endChapterLevelId: 20
+  - _chapterName: Normal
+    _startChapterLevelId: 21
+    _endChapterLevelId: 50
+  - _chapterName: Hard
+    _startChapterLevelId: 51
+    _endChapterLevelId: 80
+  - _chapterName: Advanced
+    _startChapterLevelId: 81
+    _endChapterLevelId: 200
