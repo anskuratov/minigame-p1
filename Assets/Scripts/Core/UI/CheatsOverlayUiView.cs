@@ -58,7 +58,9 @@ namespace P1.Core
 
 		private void OnResetProgressButtonClicked()
 		{
-			PlayerPrefs.DeleteAll();
+			_progressManager.CurrentLevelId = 1;
+			_progressManager.CoinsCount = 0;
+			_gameManager.StartLevel();
 			View.CheatsPanel.SetActive(false);
 		}
 	}
