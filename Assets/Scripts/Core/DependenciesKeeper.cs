@@ -13,17 +13,17 @@ namespace P1.Core
 		[SerializeField] private FrameUpdater _frameUpdater;
 		[SerializeField] private FixedUpdater _fixedUpdater;
 
-		[SerializeField] private CameraSceneView _cameraSceneView; 
+		[SerializeField] private CameraSceneView _cameraSceneView;
 
 		[SerializeField] private MenuWindowView _menuWindowView;
 		[SerializeField] private ResultWindowView _resultWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
 		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
-		[SerializeField] private MainOverlayUiView _mainOverlayUiView;
 		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
 
 		[Header("Installers")]
-		[SerializeField] private SystemOverlaysInstaller _systemOverlaysInstaller; 
+		[SerializeField] private SystemOverlaysInstaller _systemOverlaysInstaller;
+		[SerializeField] private MainOverlaysInstaller _mainOverlaysInstaller;
 
 		private IStatics _statics;
 		private ProgressManager _progressManager;
@@ -64,10 +64,6 @@ namespace P1.Core
 			gameOverlayController.SetView(_gameOverlayUiView);
 			gameOverlayController.Init();
 
-			var mainOverlayController = new MainOverlayUiViewController(_gameManager);
-			mainOverlayController.SetView(_mainOverlayUiView);
-			mainOverlayController.Init();
-
 			var tutorialHandHintController = new TutorialHandHintUiViewController(_gameManager);
 			tutorialHandHintController.SetView(_tutorialHandHint);
 			tutorialHandHintController.Init();
@@ -102,6 +98,7 @@ namespace P1.Core
 		private void InitInstallers()
 		{
 			_systemOverlaysInstaller.Init(new SystemOverlaysInstallerInitData(_gameManager, _progressManager));
+			_mainOverlaysInstaller.Init(new MainOverlaysInstallerInitData(_gameManager));
 		}
 	}
 }
