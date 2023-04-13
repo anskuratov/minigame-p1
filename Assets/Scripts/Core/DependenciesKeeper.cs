@@ -15,15 +15,13 @@ namespace P1.Core
 
 		[SerializeField] private CameraSceneView _cameraSceneView;
 
-		[SerializeField] private MenuWindowView _menuWindowView;
-		[SerializeField] private ResultWindowView _resultWindowView;
 		[SerializeField] private GameFieldSceneView _gameFieldSceneView;
-		[SerializeField] private GameOverlayUiView _gameOverlayUiView;
-		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
 
 		[Header("Installers")]
 		[SerializeField] private SystemOverlaysInstaller _systemOverlaysInstaller;
 		[SerializeField] private MainOverlaysInstaller _mainOverlaysInstaller;
+		[SerializeField] private WindowsInstaller _windowsInstaller;
+		[SerializeField] private GameOverlaysInstaller _gameOverlaysInstaller;
 
 		private IStatics _statics;
 		private ProgressManager _progressManager;
@@ -45,28 +43,9 @@ namespace P1.Core
 			cameraController.SetView(_cameraSceneView);
 			cameraController.Init();
 
-			var menuWindowController = new MenuWindowViewController(_gameManager);
-			menuWindowController.SetView(_menuWindowView);
-			menuWindowController.Init();
-			menuWindowController.SetActive(false);
-
-			var winWindowController = new ResultWindowViewController(_gameManager);
-			winWindowController.SetView(_resultWindowView);
-			winWindowController.Init();
-			winWindowController.SetActive(false);
-
 			var gameFieldController = new GameFieldSceneViewController(_gameManager);
 			gameFieldController.SetView(_gameFieldSceneView);
 			gameFieldController.Init();
-
-			var gameOverlayController =
-				new GameOverlayUiViewController(_statics, _gameManager, menuWindowController, _frameUpdater);
-			gameOverlayController.SetView(_gameOverlayUiView);
-			gameOverlayController.Init();
-
-			var tutorialHandHintController = new TutorialHandHintUiViewController(_gameManager);
-			tutorialHandHintController.SetView(_tutorialHandHint);
-			tutorialHandHintController.Init();
 
 			InitInstallers();
 		}
@@ -99,6 +78,13 @@ namespace P1.Core
 		{
 			_systemOverlaysInstaller.Init(new SystemOverlaysInstallerInitData(_gameManager, _progressManager));
 			_mainOverlaysInstaller.Init(new MainOverlaysInstallerInitData(_gameManager));
+			_windowsInstaller.Init(new WindowsInstallerInitData(_gameManager));
+			_gameOverlaysInstaller.Init(new GameOverlaysInstallerInitData(
+				_statics,
+				_gameManager,
+				_windowsInstaller.MenuWindowViewController,
+				_frameUpdater
+			));
 		}
 	}
 }
