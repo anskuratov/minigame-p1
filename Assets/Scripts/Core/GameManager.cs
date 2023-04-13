@@ -22,10 +22,10 @@ namespace P1.Core
 		private Circle _previousCircle;
 		private int _circlesCount;
 
-		public GameManager(IStatics statics)
+		public GameManager(IStatics statics, ProgressManager progressManager)
 		{
 			_statics = statics;
-			_progressManager = new ProgressManager();
+			_progressManager = progressManager;
 
 			_progressManager.OnLevelChanged += SetLevel;
 			_progressManager.OnCoinsChanged += SetCoins;

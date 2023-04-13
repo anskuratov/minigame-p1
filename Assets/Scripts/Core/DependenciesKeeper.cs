@@ -1,3 +1,4 @@
+using P1.Core.Installer;
 using P1.Framework;
 using UnityEngine;
 
@@ -21,7 +22,11 @@ namespace P1.Core
 		[SerializeField] private MainOverlayUiView _mainOverlayUiView;
 		[SerializeField] private TutorialHandHintUiView _tutorialHandHint;
 
+		[Header("Installers")]
+		[SerializeField] private SystemOverlaysInstaller _systemOverlaysInstaller; 
+
 		private IStatics _statics;
+		private ProgressManager _progressManager;
 		private GameManager _gameManager;
 		private GoogleMobileAds _googleMobileAds;
 
@@ -66,6 +71,8 @@ namespace P1.Core
 			var tutorialHandHintController = new TutorialHandHintUiViewController(_gameManager);
 			tutorialHandHintController.SetView(_tutorialHandHint);
 			tutorialHandHintController.Init();
+
+			InitInstallers();
 		}
 
 		private void Start()
@@ -76,7 +83,9 @@ namespace P1.Core
 		private void InitGame()
 		{
 			_statics = new Statics(_staticsData);
-			_gameManager = new GameManager(_statics);
+			_progressManager = new ProgressManager();
+
+			_gameManager = new GameManager(_statics, _progressManager);
 			_gameManager.Init();
 		}
 
@@ -88,6 +97,11 @@ namespace P1.Core
 			_ = new InterstitialAdController(_googleMobileAds, _gameManager);
 
 			_googleMobileAds.Init();
+		}
+
+		private void InitInstallers()
+		{
+			_systemOverlaysInstaller.Init(new SystemOverlaysInstallerInitData(_gameManager, _progressManager));
 		}
 	}
 }
