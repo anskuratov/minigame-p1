@@ -22,10 +22,12 @@ namespace P1.Core.Installer
 
 		public void Init(SystemOverlaysInstallerInitData initData)
 		{
+#if MC_DEBUG
 			var cheatsOverlayUiView = Instantiate(_cheatsOverlayPrefab, transform);
 			var cheatsOverlayUiViewController = new CheatsOverlayUiViewController(initData.GameManager, initData.ProgressManager);
 			cheatsOverlayUiViewController.SetView(cheatsOverlayUiView);
 			cheatsOverlayUiViewController.Init();
+#endif
 		}
 	}
 }
