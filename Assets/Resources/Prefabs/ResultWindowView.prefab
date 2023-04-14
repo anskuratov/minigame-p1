@@ -180,7 +180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5054785558532097626}
-  - component: {fileID: 5054785558532097631}
+  - component: {fileID: 6487202043998394958}
   - component: {fileID: 5054785558532097625}
   - component: {fileID: 5054785558532097624}
   m_Layer: 5
@@ -211,7 +211,7 @@ RectTransform:
   m_AnchoredPosition: {x: 300, y: -50}
   m_SizeDelta: {x: 263.96002, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5054785558532097631
+--- !u!114 &6487202043998394958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5054785558532097627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d26460c93024cebadaf7850b69e06a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3db5f616281f84b6abf56010a37bbee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5054785558532097625
@@ -847,7 +847,7 @@ MonoBehaviour:
   _nextButton: {fileID: 7891771201203142522}
   _retryButton: {fileID: 7891771199948380003}
   _windowBackgroundImage: {fileID: 5054785559018322760}
-  _rewardContainer: {fileID: 5054785558532097631}
+  _rewardContainer: {fileID: 6487202043998394958}
   _resultText: {fileID: 5054785558191256985}
   _coinsCountText: {fileID: 5054785558540142496}
   _winColor: {r: 0.12941177, g: 0.7372549, b: 0.32941177, a: 0.7529412}

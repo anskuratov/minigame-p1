@@ -1,7 +1,6 @@
-using P1.Framework;
+using AS.Framework;
 using TMPro;
 using UnityEngine;
-using View = P1.Framework.View;
 
 namespace P1.Core
 {

@@ -1,5 +1,5 @@
 using P1.Core.Installer;
-using P1.Framework;
+using AS.Framework;
 using UnityEngine;
 
 namespace P1.Core
