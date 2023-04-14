@@ -1,0 +1,3 @@
+[submodule "Modules/unity-game-framework"]
+	path = Modules/unity-game-framework
+	url = git@github.com:anskuratov/unity-game-framework.git
