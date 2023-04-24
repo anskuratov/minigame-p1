@@ -68,7 +68,7 @@ namespace P1.Core
 		{
 			_googleMobileAds = new GoogleMobileAds();
 
-			_ = new BannerAdController(_googleMobileAds);
+			_ = new BannerAdController(_googleMobileAds, _gameManager);
 			_ = new InterstitialAdController(_googleMobileAds, _gameManager);
 
 			_googleMobileAds.Init();

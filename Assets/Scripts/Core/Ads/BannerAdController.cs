@@ -12,10 +12,19 @@ namespace P1.Core
 #else
 			"unused";
 #endif
+		private bool IsLevelSuitableForAd => _gameManager.Level.Id >= 5;
 
-		public BannerAdController(IGoogleMobileAds googleMobileAds)
+		private readonly GameManager _gameManager;
+
+		private bool _isEnabled;
+		private BannerView _bannerView;
+
+		public BannerAdController(IGoogleMobileAds googleMobileAds, GameManager gameManager)
 		{
 			googleMobileAds.OnInitialized += OnGoogleMobileAdsInitialized;
+			_gameManager = gameManager;
+
+			_gameManager.OnLevelStarted += OnLevelStarted;
 		}
 
 		private void OnGoogleMobileAdsInitialized(InitializationStatus initializationStatus)
@@ -26,16 +35,48 @@ namespace P1.Core
 				allClassesInitializedSuccessfully &= adapterStatus.Value.InitializationState == AdapterState.Ready;
 			}
 
-			if (allClassesInitializedSuccessfully)
+			_isEnabled = allClassesInitializedSuccessfully;
+
+			if (_isEnabled && IsLevelSuitableForAd && _bannerView == null)
+			{
+				LoadBannerAd();
+			}
+		}
+
+		private void OnLevelStarted()
+		{
+			if (_isEnabled && IsLevelSuitableForAd && _bannerView == null)
+			{
+				LoadBannerAd();
+			}
+		}
+
+		private void DestroyBannerAd()
+		{
+			if (_bannerView != null)
+			{
+				_bannerView.Destroy();
+				_bannerView = null;
+			}
+		}
+
+		private void LoadBannerAd()
+		{
+			if (_bannerView == null)
 			{
 				CreateDefaultBanner();
 			}
+
+			var adRequest = new AdRequest.Builder()
+				.AddKeyword("unity-admob-sample")
+				.Build();
+
+			_bannerView?.LoadAd(adRequest);
 		}
 
 		private void CreateDefaultBanner()
 		{
-			var bannerView = new BannerView(AdUnitId, AdSize.IABBanner, AdPosition.Bottom);
-			bannerView.Show();
+			_bannerView = new BannerView(AdUnitId, AdSize.IABBanner, AdPosition.Bottom);
 		}
 	}
 }

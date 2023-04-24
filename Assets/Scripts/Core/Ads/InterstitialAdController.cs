@@ -17,9 +17,8 @@ namespace P1.Core
 
 		private readonly GameManager _gameManager;
 
-		private InterstitialAd _interstitialAd;
-
 		private bool _isEnabled;
+		private InterstitialAd _interstitialAd;
 
 		public InterstitialAdController(IGoogleMobileAds googleMobileAds, GameManager gameManager)
 		{
@@ -43,31 +42,10 @@ namespace P1.Core
 
 		private void OnLevelStarted()
 		{
-			if (_isEnabled)
+			if (_isEnabled && IsLevelSuitableForAd)
 			{
-				if (_interstitialAd != null)
-				{
-					_interstitialAd.Destroy();
-					_interstitialAd = null;
-				}
-
-				if (IsLevelSuitableForAd)
-				{
-
-					var adRequest = new AdRequest.Builder()
-						.AddKeyword("unity-admob-sample")
-						.Build();
-
-					InterstitialAd.Load(AdUnitId, adRequest, OnAdLoaded);
-				}
-			}
-		}
-
-		private void OnAdLoaded(InterstitialAd ad, LoadAdError error)
-		{
-			if (ad != null && error == null)
-			{
-				_interstitialAd = ad;
+				DestroyInterstitialAd();
+				LoadInterstitialAd();
 			}
 		}
 
@@ -81,6 +59,32 @@ namespace P1.Core
 				{
 					_interstitialAd.Show();
 				}
+			}
+		}
+
+		private void DestroyInterstitialAd()
+		{
+			if (_interstitialAd != null)
+			{
+				_interstitialAd.Destroy();
+				_interstitialAd = null;
+			}
+		}
+
+		private void LoadInterstitialAd()
+		{
+			var adRequest = new AdRequest.Builder()
+				.AddKeyword("unity-admob-sample")
+				.Build();
+
+			InterstitialAd.Load(AdUnitId, adRequest, OnAdLoaded);
+		}
+
+		private void OnAdLoaded(InterstitialAd ad, LoadAdError error)
+		{
+			if (ad != null && error == null)
+			{
+				_interstitialAd = ad;
 			}
 		}
 	}
