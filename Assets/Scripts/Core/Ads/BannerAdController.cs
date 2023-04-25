@@ -1,4 +1,7 @@
+using System.Collections;
+using AS.Framework;
 using GoogleMobileAds.Api;
+using UnityEngine;
 
 namespace P1.Core
 {
@@ -12,17 +15,24 @@ namespace P1.Core
 #else
 			"unused";
 #endif
+
+		private static readonly WaitForSeconds WaitForOneSecond = new (1);
+
 		private bool IsLevelSuitableForAd => _gameManager.Level.Id >= 5;
 
 		private readonly GameManager _gameManager;
+		private readonly ICoroutines _coroutines;
 
 		private bool _isEnabled;
 		private BannerView _bannerView;
 
-		public BannerAdController(IGoogleMobileAds googleMobileAds, GameManager gameManager)
+		private Coroutine _loadingBannerCoroutine;
+
+		public BannerAdController(IGoogleMobileAds googleMobileAds, GameManager gameManager, ICoroutines coroutines)
 		{
 			googleMobileAds.OnInitialized += OnGoogleMobileAdsInitialized;
 			_gameManager = gameManager;
+			_coroutines = coroutines;
 
 			_gameManager.OnLevelStarted += OnLevelStarted;
 		}
@@ -37,18 +47,34 @@ namespace P1.Core
 
 			_isEnabled = allClassesInitializedSuccessfully;
 
-			if (_isEnabled && IsLevelSuitableForAd && _bannerView == null)
-			{
-				LoadBannerAd();
-			}
+			TryToLoadBanner();
 		}
 
 		private void OnLevelStarted()
 		{
+			TryToLoadBanner();
+		}
+
+		private void TryToLoadBanner()
+		{
 			if (_isEnabled && IsLevelSuitableForAd && _bannerView == null)
 			{
-				LoadBannerAd();
+				if (_loadingBannerCoroutine != null)
+				{
+					_coroutines.Stop(_loadingBannerCoroutine);
+					_loadingBannerCoroutine = null;
+				}
+
+				_loadingBannerCoroutine = _coroutines.Run(DeferredLoadBannerAd());
 			}
+		}
+
+		private IEnumerator DeferredLoadBannerAd()
+		{
+			yield return WaitForOneSecond;
+
+			LoadBannerAd();
+			_loadingBannerCoroutine = null;
 		}
 
 		private void DestroyBannerAd()

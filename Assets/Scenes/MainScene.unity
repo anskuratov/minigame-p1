@@ -545,6 +545,7 @@ MonoBehaviour:
   _staticsData: {fileID: 11400000, guid: a6b167634b6d94b8db0e81cbb629250a, type: 2}
   _frameUpdater: {fileID: 2015015286}
   _fixedUpdater: {fileID: 2015015285}
+  _coroutines: {fileID: 1900739475}
   _cameraSceneView: {fileID: 1883053177}
   _gameFieldSceneView: {fileID: 598321161}
   _systemOverlaysInstaller: {fileID: 2081522598}
@@ -564,6 +565,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2015015284}
+  - {fileID: 1900739474}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -793,6 +795,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 1883053175}
+--- !u!1 &1900739473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1900739474}
+  - component: {fileID: 1900739475}
+  m_Layer: 0
+  m_Name: Coroutines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1900739474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900739473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1337237332}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900739475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900739473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908a783d774842359be119e258861b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2015015281
 GameObject:
   m_ObjectHideFlags: 0

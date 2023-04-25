@@ -12,6 +12,7 @@ namespace P1.Core
 		[Header("Dependencies")]
 		[SerializeField] private FrameUpdater _frameUpdater;
 		[SerializeField] private FixedUpdater _fixedUpdater;
+		[SerializeField] private Coroutines _coroutines;
 
 		[SerializeField] private CameraSceneView _cameraSceneView;
 
@@ -68,7 +69,7 @@ namespace P1.Core
 		{
 			_googleMobileAds = new GoogleMobileAds();
 
-			_ = new BannerAdController(_googleMobileAds, _gameManager);
+			_ = new BannerAdController(_googleMobileAds, _gameManager, _coroutines);
 			_ = new InterstitialAdController(_googleMobileAds, _gameManager);
 
 			_googleMobileAds.Init();
